@@ -1,10 +1,10 @@
-# Discord-Recon
+# Discord-Recon [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty)
 Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.
 
 ## What's Discord Recon?
 - Discord Recon is a Cool Discord Bot Working On Your Server To Make It Easy To Do Recon From Your Discord Server. The Bot Has Been Linked With Many Tools Like: Nuclei, Findomain, Assetfinder, Subfinder, Arjun, ParamSpider, Waybackurls, Dirsearch And gitGraber. You Can Use All Of These Tools Via The Bot Using Only Discord Commands. Also, Discord Recon Allows You To Automate Subdomains Collection Process. It's Using Assetfinder, Findomain And Subfinder To Collect Subdomains, Sort Them Using Python Function. Then Filter Them Using httpx. And The Output Is Getting Saved On The Server. Anytime You Want To Use This Data For Nuclei Scans Or Any Other Scans That Wiil Be Added Soon. You Can Just Call The Scan Function And It Will Use The Subdomains That Got Saved Before. 
 
-## Setup Variables
+## Setup Variables :star:
 - `DISCORD_TOKEN` - Your Discord Bot Token
 - `USER` - Path To Your OS User
 - `RECON_PATH` - Path To Your Recon Data
@@ -15,7 +15,7 @@ Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Disc
 - `TOOLS` - Paths For The Tools Names Inside Your System
 - `RCE` - Command Injection Protection. Don't Ever Remove One Of It's Items.
 
-## Commands:
+## Commands: :thought_balloon:
 - `.ip` - Get The Domain IP
 - `.dig` - Run dig
 - `.nslookup` - Run nslookup
@@ -32,8 +32,11 @@ Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Disc
 - `.subdomains` - Collect Subdomains
 - `.nuclei` - Perform Nuclei Scan On Collected Subdomains
 
-## Don't Have a Server To Host The Bot?
+## Don't Have a Server To Host The Bot? :worried:
 - I Did Already Run The Bot On My Own Discord Server, You Can Join Using This URL: https://discord.gg/nvd2KMKB. But For Now, gitGraber Results Are Only Available For Supporters. And Some Other Scans Including The New Functions Will Be Like That. Supprting Discord Recon Will Give You Lifetime Access To The Bot. We Use The Donations To Upgrade The Server Resources So We Will Be Able To Add More Features. So We Need To Limit Bot Access.
 
-## Suggest New Tool Support?
+## Suggest New Tool Support? :boom:
 - Sure You Can. Just Open an Issue With The Tool Name. And It Will Be Added In Both. The Source Code And The Our Discord Server.
+
+## Found This Tool Helpful? :heartbeat:
+- In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a star :star:. stars helps the project to be visible to more people.
