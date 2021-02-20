@@ -335,6 +335,10 @@ async def subdomains(ctx , * , argument):
     Process = subprocess.Popen(f"cat data/subdomains/{fileName} | httpx -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     httpxResults = Process.communicate()[0].decode('UTF-8')
 
+    # saving httpx results
+    with open(f'data/subdomains/{fileName}' , 'w') as subdomainsFile:
+        subdomainsFile.write(httpxResults); subdomainsFile.close()
+
     # add results into logs
     logsParser.logsWriter(Target=argument , fileName=fileName)
     logsItems[argument] = fileName
