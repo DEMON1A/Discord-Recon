@@ -29,5 +29,5 @@ def logsParser():
 
 def logsWriter(Target , fileName):
     with open('data/logs/logs.easy' , 'a') as logsFile:
-        logsFile.write(f"\n{Target}={fileName}")
+        logsFile.write(f"{Target}={fileName}")
         logsFile.close()
