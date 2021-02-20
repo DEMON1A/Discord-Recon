@@ -40,3 +40,13 @@
 
 ## Found This Tool Helpful? :heartbeat:
 - In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a star :star:. stars helps the project to be visible to more people.
+
+# Credits :sparkles:
+- [assetfinder](https://github.com/tomnomnom/assetfinder) - [@tomnomnom](https://github.com/tomnomnom)
+- [subfinder](https://github.com/projectdiscovery/subfinder) - [@projectdiscovery](https://github.com/projectdiscovery)
+- [findomain](https://github.com/Findomain/Findomain) - [@Findomain](https://github.com/Findomain)
+- [arjun](https://github.com/s0md3v/Arjun) - [@s0md3v](https://github.com/s0md3v)
+- [dirsearch](https://github.com/maurosoria/dirsearch) - [@maurosoria](https://github.com/maurosoria)
+- [gitGraber](https://github.com/hisxo/gitGraber) - [@hisxo](https://github.com/hisxo)
+- [waybackurls](https://github.com/tomnomnom/waybackurls) - [@tomnomnom](https://github.com/tomnomnom)
+- [nuclei](https://github.com/projectdiscovery/nuclei) - [@projectdiscovery](https://github.com/projectdiscovery)
