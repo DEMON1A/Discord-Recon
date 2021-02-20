@@ -2,7 +2,7 @@ DISCORD_TOKEN = ""
 USER = ""
 RECON_PATH = ""
 ADMINS = ['']
-DEBUG = True
+DEBUG = False
 COMMANDS_PREFIX = "."
 ADMIN_CHANNEL = 
 
