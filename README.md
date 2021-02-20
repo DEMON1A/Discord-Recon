@@ -1,7 +1,7 @@
 # Discord-Recon [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty)
 Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.
 
-## What's Discord Recon?
+## What's Discord Recon? :confused:
 - Discord Recon is a Cool Discord Bot Working On Your Server To Make It Easy To Do Recon From Your Discord Server. The Bot Has Been Linked With Many Tools Like: Nuclei, Findomain, Assetfinder, Subfinder, Arjun, ParamSpider, Waybackurls, Dirsearch And gitGraber. You Can Use All Of These Tools Via The Bot Using Only Discord Commands. Also, Discord Recon Allows You To Automate Subdomains Collection Process. It's Using Assetfinder, Findomain And Subfinder To Collect Subdomains, Sort Them Using Python Function. Then Filter Them Using httpx. And The Output Is Getting Saved On The Server. Anytime You Want To Use This Data For Nuclei Scans Or Any Other Scans That Wiil Be Added Soon. You Can Just Call The Scan Function And It Will Use The Subdomains That Got Saved Before. 
 
 ## Setup Variables :star:
