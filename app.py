@@ -381,7 +381,7 @@ async def nuclei(ctx, *, argument):
         RandomStr = random.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(httpxResults); Writer.close()
+            Writer.write(nucleiResults); Writer.close()
             await ctx.send(f"**Nuclei Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
             await ctx.send(f"\n**- {ctx.message.author}**")
     else:
