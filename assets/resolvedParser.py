@@ -13,7 +13,7 @@ def resolvedParser():
         open('data/logs/resolved.easy' , 'a').close()
 
     resolvedContent = open('data/logs/resolved.easy', 'r').readlines()
-    if len(resolvedContent) == 1:
+    if len(resolvedContent) == 0:
         return False
     else:
         for singleLine in resolvedContent:
