@@ -272,7 +272,7 @@ async def recon(ctx , *, argument):
             Data = removeColors.Remove(Text=Data)
             Message = f"""```{Data}```"""
         except Exception:
-            Message = f"**Couldn't Find The Recon Data With This Path: {argument2}**"
+            Message = f"**Couldn't Find The Recon Data With This Path: {argument}**"
     else:
         Message = "**Sorry The Path You Added Doesn't Exists On Our Records**"
 
@@ -281,7 +281,7 @@ async def recon(ctx , *, argument):
 
         with open(f'messages/{RandomStr}' , 'w') as Writer:
             Writer.write(Message); Writer.close()
-            await ctx.send(f"Recon Results For {argument1}: ", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"Recon Results For {argument}: ", file=discord.File(f"messages/{RandomStr}"))
     else:
         await ctx.send(f'{Message}')
 
