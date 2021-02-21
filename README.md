@@ -30,7 +30,9 @@
 - `.paramspider` - Start ParamSpider
 - `.recon` - Read Internal Recon File
 - `.subdomains` - Collect Subdomains
+- `.show` - Show Targets We Have On The Database
 - `.nuclei` - Perform Nuclei Scan On Collected Subdomains
+- `.subjack` - Perform Subjack Scan On Collected Subdomains
 
 ## Don't Have a Server To Host The Bot? :worried:
 - I Did Already Run The Bot On My Own Discord Server, You Can Join Using This URL: https://discord.gg/nvd2KMKB. But For Now, gitGraber Results Are Only Available For Supporters. And Some Other Scans Including The New Functions Will Be Like That. Supprting Discord Recon Will Give You Lifetime Access To The Bot. We Use The Donations To Upgrade The Server Resources So We Will Be Able To Add More Features. So We Need To Limit Bot Access.
