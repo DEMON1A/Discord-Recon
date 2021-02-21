@@ -52,3 +52,4 @@
 - [gitGraber](https://github.com/hisxo/gitGraber) - [@hisxo](https://github.com/hisxo)
 - [waybackurls](https://github.com/tomnomnom/waybackurls) - [@tomnomnom](https://github.com/tomnomnom)
 - [nuclei](https://github.com/projectdiscovery/nuclei) - [@projectdiscovery](https://github.com/projectdiscovery)
+- [subjack](https://github.com/haccer/subjack) - [@haccer](https://github.com/haccer)
