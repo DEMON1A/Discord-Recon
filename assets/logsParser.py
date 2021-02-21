@@ -13,7 +13,7 @@ def logsParser():
         open('data/logs/logs.easy' , 'a').close()
 
     logsContent = open('data/logs/logs.easy', 'r').readlines()
-    if len(logsContent) == 1:
+    if len(logsContent) == 0:
         return False
     else:
         for singleLine in logsContent:
