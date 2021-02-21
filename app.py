@@ -10,11 +10,16 @@ from assets import removeColors
 from assets import Duplicates
 from assets import removeString
 from assets import logsParser
+from assets import resolvedParser
 
 Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
 
+# Define globals
 logsItems = logsParser.logsParser()
 if not logsItems: logsItems = {}
+
+resolvedItems = resolvedParser.resolvedParser()
+if not resolvedItems: resolvedItems = {}
 
 # Commands
 @Client.command()
@@ -43,7 +48,7 @@ async def exec(ctx , *, argument):
 
 @Client.command()
 async def nslookup(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE): 
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
@@ -288,7 +293,7 @@ async def recon(ctx , *, argument):
 # Recon Collections
 @Client.command()
 async def subdomains(ctx , * , argument):
-    global logsItems
+    global logsItems, resolvedItems
 
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
@@ -325,14 +330,20 @@ async def subdomains(ctx , * , argument):
 
     # saving subdomains
     fileName = random.Genrate()
+    resolvedName = random.Genrate()
+
     currentPath = getcwd()
     allSubdomains = '\n'.join(allSubdomains)
 
-    with open(f'data/subdomains/{fileName}' , 'w') as subdomainsFile:
+    with open(f'data/hosts/{resolvedName}' , 'w') as subdomainsFile:
         subdomainsFile.write(allSubdomains); subdomainsFile.close()
 
+    # add resolved into logs
+    resolvedParser.resolvedWriter(Target=argument , fileName=f"{resolvedName}\n")
+    resolvedItems[argument] = resolvedName
+
     # validate subdomains
-    Process = subprocess.Popen(f"cat data/subdomains/{fileName} | httpx -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    Process = subprocess.Popen(f"cat data/hosts/{resolvedName} | httpx -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     httpxResults = Process.communicate()[0].decode('UTF-8')
 
     # saving httpx results
@@ -357,6 +368,38 @@ async def subdomains(ctx , * , argument):
         await ctx.send(f"\n**- {ctx.message.author}**")
 
 @Client.command()
+async def info(ctx , *, argument):
+    global logsItems
+
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    try:
+        subdomainsFile = logsItems[argument]
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
+    await ctx.send(f"**Getting Subdomains Information (titles , status-codes, web-servers) for {argument} using httpx.**")
+    Process = subprocess.Popen(f"cat data/subdomains/{subdomainsFile} | httpx -title -web-server -status-code -follow-redirects -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    httpxResults = Process.communicate()[0].decode('UTF-8')
+    httpxResults = removeColors.Remove(Text=httpxResults)
+
+    if len(httpxResults) > 2000:
+        RandomStr = random.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Writer:
+            Writer.write(httpxResults); Writer.close()
+            await ctx.send(f"**Httpx Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send(f"**Nuclei Results For {argument}:**")
+        await ctx.send(f'```{httpxResults}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
+# Tools collection
+@Client.command()
 async def nuclei(ctx, *, argument):
     global logsItems
     nucleiTemplates = TOOLS['nuclei-templates']
@@ -368,12 +411,13 @@ async def nuclei(ctx, *, argument):
     try:
         subdomainsFile = logsItems[argument]
     except Exception:
-        await ctx.send("**There's no subdomains has been colected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
         return
 
     await ctx.send(f"**Scanning {argument} For Possible Issues Using Nuclei.**")
     Process = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     nucleiResults = Process.communicate()[0].decode('UTF-8')
+    nucleiResults = removeColors.Remove(Text=nucleiResults)
 
     if nucleiResults == '':
         await ctx.send(f"**Nuclei Couldn't Find Issue On {argument}**")
@@ -388,6 +432,52 @@ async def nuclei(ctx, *, argument):
         await ctx.send(f"**Nuclei Results For {argument}:**")
         await ctx.send(f'```{nucleiResults}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
+
+@Client.command()
+async def subjack(ctx , *, argument):
+    global resolvedItems
+
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    try:
+        resolvedFile = resolvedItems[argument]
+        fileStr = random.Genrate()
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
+    await ctx.send(f"**Scanning {argument} For Possible Subdomains Takeover Issues Using Subjack**")
+    Process = subprocess.Popen(f"subjack -w data/hosts/{resolvedFile} -t 100 -timeout 30 -o data/subjack/{argument}-{fileStr}.subjack -ssl",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    subjackResults = Process.communicate()[0].decode('UTF-8')
+    subjackResults = removeColors.Remove(Text=subjackResults)
+
+    if subjackResults == '':
+        await ctx.send(f"**Subjack Couldn't Find Issue On {argument}**")
+    elif len(subjackResults) > 2000:
+        RandomStr = random.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Writer:
+            Writer.write(subjackResults); Writer.close()
+            await ctx.send(f"**Subjack Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send(f"**Subjack Results For {argument}:**")
+        await ctx.send(f'```{subjackResults}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
+# Showing Current Recon Data
+@Client.command()
+async def show(ctx):
+    global logsItems
+
+    targetsList = []
+    for site,_ in logsItems.items():
+        targetsList.append(site)
+
+    targetsMessage = ', '.join(targetsList)
+    await ctx.send(f"**We Have Subdomains For: {targetsMessage}**")
 
 # Main Event With Admin Channel Logger.
 @Client.event
