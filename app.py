@@ -446,7 +446,7 @@ async def subdomains(ctx , * , argument):
         RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output)
+            Message.write(httpxResults)
             Message.close()
 
             messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
@@ -491,7 +491,7 @@ async def info(ctx , *, argument):
         RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output)
+            Message.write(httpxResults)
             Message.close()
 
             messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
@@ -540,7 +540,7 @@ async def nuclei(ctx, *, argument):
         RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output)
+            Message.write(nucleiResults)
             Message.close()
 
             messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
@@ -588,7 +588,7 @@ async def subjack(ctx , *, argument):
         RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output)
+            Message.write(subjackResults)
             Message.close()
 
             messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
