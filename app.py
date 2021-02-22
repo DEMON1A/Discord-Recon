@@ -18,14 +18,11 @@ Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
 
 # Define globals
 logsItems = logsParser.logsParser()
-print(str(logsItems))
 if not logsItems: logsItems = {}
 
 resolvedItems = resolvedParser.resolvedParser()
-print(str(resolvedItems))
 if not resolvedItems: resolvedItems = {}
 
-exit()
 # Commands
 @Client.command()
 async def exec(ctx , *, argument):
