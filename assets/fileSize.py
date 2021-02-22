@@ -5,6 +5,7 @@ def getSize(filePath):
         sizeInBytes = path.getsize(filePath)
         sizeInMegaBytes = sizeInBytes / 1000000
         fileSize = int(sizeInMegaBytes)
+        if fileSize == 0: fileSize = True
 
         return fileSize
     else:
