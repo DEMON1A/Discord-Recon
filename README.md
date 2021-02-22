@@ -32,6 +32,7 @@
 - `.recon` - Read Internal Recon File
 - `.subdomains` - Collect Subdomains
 - `.show` - Show Targets We Have On The Database
+- `.count` - Show Subdomains/Hosts Count In The DataBase.
 - `.nuclei` - Perform Nuclei Scan On Collected Subdomains
 - `.subjack` - Perform Subjack Scan On Collected Subdomains
 
