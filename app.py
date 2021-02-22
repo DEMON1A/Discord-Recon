@@ -610,6 +610,53 @@ async def subjack(ctx , *, argument):
         await ctx.send(f'```{subjackResults}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
+@Client.command()
+async def subjs(ctx , *, argument):
+    global logsItems
+
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    try:
+        subdomainsFile = logsItems[argument]
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
+    await ctx.send(f"**Extracting JS Files From {argument} Using Subjs**")
+    Process = subprocess.Popen(f"cat data/subdomains/{subdomainsFile} | subjs",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    subjsResults = Process.communicate()[0].decode('UTF-8')
+
+    if subjsResults == '':
+        await ctx.send(f"**Subjs Couldn't Find Issue On {argument}**")
+    elif len(subjsResults) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(subjsResults)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Subjs Results: {URL_}")
+            else:
+                await ctx.send("**Subjs Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send(f"**Subjs Results For {argument}:**")
+        await ctx.send(f'```{subjsResults}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
 # Showing Current Recon Data
 @Client.command()
 async def show(ctx):
