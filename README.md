@@ -42,7 +42,6 @@
 - Sure You Can. Just Open an Issue With The Tool Name. And It Will Be Added In Both. The Source Code And The Our Discord Server.
 
 ## Wanna Delete Your Bot Data? :worried:
-- I Just Added `clean.sh` That Auto Delete The Bot Databases For You. All You Need Is Just Using Two Commands:
 - `chmod +x clean.sh && ./clean.sh`
 
 ## Found This Tool Helpful? :heartbeat:
