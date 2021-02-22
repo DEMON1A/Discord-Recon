@@ -5,22 +5,27 @@ from os import path , getcwd , chdir
 
 from assets import CommandInjection
 from assets import getIp
-from assets import random
+from assets import randomStrings
 from assets import removeColors
 from assets import Duplicates
 from assets import removeString
 from assets import logsParser
 from assets import resolvedParser
+from assets import fileSize
+from assets import filesUploader
 
 Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
 
 # Define globals
 logsItems = logsParser.logsParser()
+print(str(logsItems))
 if not logsItems: logsItems = {}
 
 resolvedItems = resolvedParser.resolvedParser()
+print(str(resolvedItems))
 if not resolvedItems: resolvedItems = {}
 
+exit()
 # Commands
 @Client.command()
 async def exec(ctx , *, argument):
@@ -30,7 +35,7 @@ async def exec(ctx , *, argument):
                 Process = subprocess.Popen(f'{argument}' , shell=True , executable="/bin/bash" , stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 Results = Process.communicate()[0].decode('UTF-8')
                 if len(Results) > 2000:
-                    RandomStr = random.Genrate()
+                    RandomStr = randomStrings.Genrate()
 
                     with open(f'messages/{RandomStr}' , 'w') as Message:
                         Message.write(Results); Message.close()
@@ -64,7 +69,7 @@ async def whois(ctx , *, argument):
     Output = subprocess.check_output([f'whois {argument}'] , shell=True).decode('UTF-8')
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
             Message.write(Output); Message.close()
@@ -100,7 +105,7 @@ async def dirsearch(ctx , *, argument):
     Output = removeColors.Remove(Output); chdir(MainPath)
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
             Message.write(Output); Message.close()
@@ -122,7 +127,7 @@ async def arjun(ctx , *, argument):
     Output = removeString.removeString('Processing' , Output=Output)
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
             Message.write(Output); Message.close()
@@ -156,14 +161,28 @@ async def waybackurls(ctx , *, argument):
     Output = Process.communicate()[0].decode('UTF-8')
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Waybackurls Results: {URL_}")
+            else:
+                await ctx.send("**Waybackurls Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
-        await ctx.send(f'Results:')
+        await ctx.send(f'Waybackurls Results:')
         await ctx.send(f'```{Output}```')
 
 @Client.command()
@@ -177,14 +196,28 @@ async def subfinder(ctx , *, argument):
     Output = Process.communicate()[0].decode('UTF-8')
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Subfinder Results: {URL_}")
+            else:
+                await ctx.send("**Subfinder Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
-        await ctx.send(f'Results:')
+        await ctx.send(f'Subfinder Results:')
         await ctx.send(f'```{Output}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
@@ -199,12 +232,26 @@ async def assetfinder(ctx , *, argument):
     Output = Process.communicate()[0].decode('UTF-8')
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Assetfinder Results: {URL_}")
+            else:
+                await ctx.send("**Assetfinder Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f'Results:')
         await ctx.send(f'```{Output}```')
@@ -222,12 +269,26 @@ async def findomain(ctx , *, argument):
     Output = Process.communicate()[0].decode('UTF-8')
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("**Findomain Results:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Findomain Results: {URL_}")
+            else:
+                await ctx.send("**Findomain Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send("**Findomain Results:**")
         await ctx.send(f"```{Output}```")
@@ -256,12 +317,26 @@ async def paramspider(ctx, *, argument):
     Output = '\n'.join(urlsList)
 
     if len(Output) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("**ParamSpider Results:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"ParamSpider Results: {URL_}")
+            else:
+                await ctx.send("**ParamSpider Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f'**ParamSpider Results:**')
         await ctx.send(f'```{Output}```')
@@ -282,11 +357,26 @@ async def recon(ctx , *, argument):
         Message = "**Sorry The Path You Added Doesn't Exists On Our Records**"
 
     if len(Message) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(Message); Writer.close()
-            await ctx.send(f"Recon Results For {argument}: ", file=discord.File(f"messages/{RandomStr}"))
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Message)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Recon Results: {URL_}")
+            else:
+                await ctx.send("**Recon Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f'{Message}')
 
@@ -329,8 +419,8 @@ async def subdomains(ctx , * , argument):
     allSubdomains = Duplicates.Duplicates(Subdomains=allSubdomains)
 
     # saving subdomains
-    fileName = random.Genrate()
-    resolvedName = random.Genrate()
+    fileName = randomStrings.Genrate()
+    resolvedName = randomStrings.Genrate()
 
     currentPath = getcwd()
     allSubdomains = '\n'.join(allSubdomains)
@@ -356,12 +446,26 @@ async def subdomains(ctx , * , argument):
 
     # send httpx results
     if len(httpxResults) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(httpxResults); Writer.close()
-            await ctx.send(f"**Subdomains For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Httpx Results: {URL_}")
+            else:
+                await ctx.send("**Httpx Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f"**Subdomains For {argument}:**")
         await ctx.send(f'```{httpxResults}```')
@@ -387,14 +491,28 @@ async def info(ctx , *, argument):
     httpxResults = removeColors.Remove(Text=httpxResults)
 
     if len(httpxResults) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(httpxResults); Writer.close()
-            await ctx.send(f"**Httpx Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Httpx Results: {URL_}")
+            else:
+                await ctx.send("**Httpx Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
-        await ctx.send(f"**Nuclei Results For {argument}:**")
+        await ctx.send(f"**Httpx Results For {argument}:**")
         await ctx.send(f'```{httpxResults}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
@@ -422,12 +540,26 @@ async def nuclei(ctx, *, argument):
     if nucleiResults == '':
         await ctx.send(f"**Nuclei Couldn't Find Issue On {argument}**")
     elif len(nucleiResults) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(nucleiResults); Writer.close()
-            await ctx.send(f"**Nuclei Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Nuclei Results: {URL_}")
+            else:
+                await ctx.send("**Nuclei Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f"**Nuclei Results For {argument}:**")
         await ctx.send(f'```{nucleiResults}```')
@@ -443,7 +575,7 @@ async def subjack(ctx , *, argument):
 
     try:
         resolvedFile = resolvedItems[argument]
-        fileStr = random.Genrate()
+        fileStr = randomStrings.Genrate()
     except Exception:
         await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
         return
@@ -456,12 +588,26 @@ async def subjack(ctx , *, argument):
     if subjackResults == '':
         await ctx.send(f"**Subjack Couldn't Find Issue On {argument}**")
     elif len(subjackResults) > 2000:
-        RandomStr = random.Genrate()
+        RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Writer:
-            Writer.write(subjackResults); Writer.close()
-            await ctx.send(f"**Subjack Results For {argument}:**", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Subjack Results: {URL_}")
+            else:
+                await ctx.send("**Subjack Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f"**Subjack Results For {argument}:**")
         await ctx.send(f'```{subjackResults}```')
