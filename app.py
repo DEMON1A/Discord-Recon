@@ -622,6 +622,30 @@ async def show(ctx):
     targetsMessage = ', '.join(targetsList)
     await ctx.send(f"**We Have Subdomains For: {targetsMessage}**")
 
+@Client.command()
+async def count(ctx , *, argument):
+    global logsItems , resolvedItems
+
+    try:
+        resolvedFile = resolvedItems[argument]
+        resolvedContent = open(f'data/hosts/{resolvedFile}' , 'r').readlines()
+        resolvedLength = len(resolvedContent)
+
+        await ctx.send(f"**There's {str(resolvedLength)} Live Hosts For {argument}**")
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
+    try:
+        subdomainsFile = logsItems[argument]
+        subdomainsContent = open(f'data/subdomains/{subdomainsFile}' , 'r').readlines()
+        subdomainsLength = len(subdomainsContent)
+
+        await ctx.send(f"**There's {str(subdomainsLength)} Valid Subdomains For {argument}**")
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
 # Main Event With Admin Channel Logger.
 @Client.event
 async def on_member_join(member):
