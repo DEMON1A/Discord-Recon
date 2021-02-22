@@ -16,6 +16,7 @@
 - `RCE` - Command Injection Protection. Don't Ever Remove One Of It's Items.
 
 ## Commands: :thought_balloon:
+- `.exec` - Execute Shell Commands On The Server.
 - `.ip` - Get The Domain IP
 - `.dig` - Run dig
 - `.nslookup` - Run nslookup
