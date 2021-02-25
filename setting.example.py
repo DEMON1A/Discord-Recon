@@ -12,7 +12,8 @@ TOOLS = {
     "gitgraber":f"/{USER}/tools/gitGraber/",
     "findomain":f"/{USER}/tools/Finddomain/findomain-linux",
     "nuclei-templates":f"/{USER}/nuclei-templates/",
-    "paramspider":f"{USER}/tools/ParamSpider/"
+    "paramspider":f"{USER}/tools/ParamSpider/",
+    "smuggler":f"{USER}/tools/smuggler/"
 }
 
 RCE = [';' , '`' , '$' , '(' , ')' , '|' , '&']
