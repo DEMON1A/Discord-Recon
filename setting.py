@@ -12,7 +12,8 @@ TOOLS = {
     "gitgraber":f"/{USER}/",
     "findomain":f"/{USER}/",
     "nuclei-templates":f"/{USER}/",
-    "paramspider":f"{USER}/"
+    "paramspider":f"{USER}/",
+    "smuggler":f"{USER}/"
 }
 
 RCE = [';' , '`' , '$' , '(' , ')' , '|' , '&']
