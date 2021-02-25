@@ -364,9 +364,9 @@ async def recon(ctx , *, argument):
     if len(Message) > 2000:
         RandomStr = randomStrings.Genrate()
 
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Message)
-            Message.close()
+        with open(f'messages/{RandomStr}' , 'w') as writerHere:
+            writerHere.write(Message)
+            writerHere.close()
 
             messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
             if not messageSize:
