@@ -657,6 +657,58 @@ async def subjs(ctx , *, argument):
         await ctx.send(f'```{subjsResults}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
+@Client.command()
+async def smuggler(ctx, *, argument):
+    global logsItems
+
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    try:
+        subdomainsFile = logsItems[argument]
+    except Exception:
+        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        return
+
+    smugglerPath = TOOLS['smuggler']
+    await ctx.send(f"**Scanning {argument} For HTTP Request Smuggling Issues Using Smuggler**")
+
+    if "http:" in argument or "https:" in argument:
+        Process = subprocess.Popen(f"echo {argument} | python3 {smugglerPath}/smuggler.py",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        smugglerResults = Process.communicate()[0].decode('UTF-8')
+    else:
+        Process = subprocess.Popen(f"cat data/subdomains/{subdomainsFile} | python3 {smugglerPath}/smuggler.py",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        smugglerResults = Process.communicate()[0].decode('UTF-8')
+
+    smugglerResults = removeColors.Remove(Text=smugglerResults)
+    if len(smugglerResults) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(smugglerResults)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Smuggler Results: {URL_}")
+            else:
+                await ctx.send("**Smuggler Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send(f"**Smuggler Results For {argument}:**")
+        await ctx.send(f'```{smugglerResults}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
 # Showing Current Recon Data
 @Client.command()
 async def show(ctx):
