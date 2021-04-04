@@ -13,6 +13,7 @@ from assets import logsParser
 from assets import resolvedParser
 from assets import fileSize
 from assets import filesUploader
+from assets import subdomainsFilter
 
 Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
 
@@ -387,7 +388,7 @@ async def recon(ctx , *, argument):
 
 # Recon Collections
 @Client.command()
-async def subdomains(ctx , * , argument):
+async def subdomains(ctx ,* , argument):
     global logsItems, resolvedItems
 
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
@@ -422,6 +423,7 @@ async def subdomains(ctx , * , argument):
     # filter duplicates
     allSubdomains = findomainResults + assetfinderResults + subfinderResults
     allSubdomains = Duplicates.Duplicates(Subdomains=allSubdomains)
+    allSubdomains = subdomainsFilter.vSubdomains(sList=allSubdomains, huntingTarget=argument)
 
     # saving subdomains
     fileName = randomStrings.Genrate()
