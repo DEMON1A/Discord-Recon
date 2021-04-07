@@ -63,3 +63,4 @@
 - [subjack](https://github.com/haccer/subjack) - [@haccer](https://github.com/haccer)
 - [subjs](https://github.com/lc/subjs) - [@lc](https://github.com/lc)
 - [smuggler](https://github.com/defparam/smuggler) - [@defparam](https://github.com/defparam)
+- [httpx](https://github.com/projectdiscovery/httpx) - [@projectdiscovery](https://github.com/projectdiscovery)
