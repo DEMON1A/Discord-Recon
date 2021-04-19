@@ -45,7 +45,10 @@
 - Sure You Can. Just Open an Issue With The Tool Name. And It Will Be Added In Both. The Source Code And The Our Discord Server.
 
 ## Wanna Delete Your Bot Data? :worried:
-- `chmod +x clean.sh && ./clean.sh`
+```
+chmod +x bash/clean.sh
+./bash/clean.sh
+```
 
 ## Found This Tool Helpful? :heartbeat:
 - In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a star :star:. stars helps the project to be visible to more people.
