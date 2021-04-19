@@ -102,7 +102,7 @@ async def dirsearch(ctx , *, argument):
     
     Path = TOOLS['dirsearch']; MainPath = getcwd(); chdir(Path)
     await ctx.send(f"**Running Your Dirsearch Scan, We Will Send The Results When It's Done**")
-    Process = subprocess.Popen(f'python3 dirsearch.py -u {argument} -e * -b' , shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    Process = subprocess.Popen(f'python3 dirsearch.py -u {argument} -e php,html,csv,sql,db,conf,cgi,log,aspx,ini -b' , shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
     Output = removeColors.Remove(Output); chdir(MainPath)
 
@@ -153,7 +153,7 @@ async def gitgraber(ctx , *, argument):
 
     Path = TOOLS['gitgraber']; MainPath = getcwd(); chdir(Path)
     await ctx.send(f"**Running Your GitGraber Scan, See gitGraber Channel For Possible Leaks**")
-    _ = subprocess.Popen(f'python3 gitGraber.py -k wordlists/keywords.txt -q {argument} -d' , shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
+    _ = subprocess.Popen(f'python3 gitGrabephp,html,csv,sql,db,conf,cgi,log,aspx,inir.py -k wordlists/keywords.txt -q {argument} -d' , shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
     chdir(MainPath)
 
 @Client.command()
