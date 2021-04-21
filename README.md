@@ -19,6 +19,7 @@
 - `.exec` - Execute Shell Commands On The Server.
 - `.ip` - Get The Domain IP
 - `.dig` - Run dig
+- `.prips` - Genrate IPs from a company IP range
 - `.nslookup` - Run nslookup
 - `.whois` - Run Whois
 - `.dirsearch` - Start dirsearch Scan
