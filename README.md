@@ -51,7 +51,7 @@ chmod +x bash/clean.sh
 ```
 
 ## Found This Tool Helpful? :heartbeat:
-- In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a star :star:. stars helps the project to be visible to more people.
+- In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a :star:. stars helps the project to be visible to more people.
 
 # Credits :sparkles:
 - [assetfinder](https://github.com/tomnomnom/assetfinder) - [@tomnomnom](https://github.com/tomnomnom)
