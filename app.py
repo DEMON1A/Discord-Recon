@@ -580,37 +580,8 @@ async def nuclei(ctx, *, argument):
         return
 
     await ctx.send(f"**Scanning {argument} For Possible Issues Using Nuclei.**")
-    Process = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    nucleiResults = Process.communicate()[0].decode('UTF-8')
-    nucleiResults = removeColors.Remove(Text=nucleiResults)
-
-    if nucleiResults == '':
-        await ctx.send(f"**Nuclei Couldn't Find Issue On {argument}**")
-    elif len(nucleiResults) > 2000:
-        RandomStr = randomStrings.Genrate()
-
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(nucleiResults)
-            Message.close()
-
-            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
-            if not messageSize:
-                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                return
-            elif messageSize > 8:
-                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
-                if not URL_:
-                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                    return
-                else:
-                    await ctx.send(f"Nuclei Results: {URL_}")
-            else:
-                await ctx.send("**Nuclei Results:**", file=discord.File(f"messages/{RandomStr}"))
-                await ctx.send(f"\n**- {ctx.message.author}**")
-    else:
-        await ctx.send(f"**Nuclei Results For {argument}:**")
-        await ctx.send(f'```{nucleiResults}```')
-        await ctx.send(f"\n**- {ctx.message.author}**")
+    _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    await ctx.send("**Results gonna be sent to notify webhook channel**")
 
 @Client.command()
 async def subjack(ctx , *, argument):
