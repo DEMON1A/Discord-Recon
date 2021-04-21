@@ -1,4 +1,4 @@
-# Discord-Recon [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty)
+# Discord-Recon [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty) <a href="https://huntr.dev/bounties/disclose"><img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg" alt="Huntr"></a>
 - Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.
 
 ## What's Discord Recon? :confused:
@@ -50,6 +50,9 @@
 chmod +x bash/clean.sh
 ./bash/clean.sh
 ```
+
+## Security
+- We care about discord-recon security specially because it interacts with the internal server and any security issues can result in server-side issues, if you think that you found a security issue on discord-recon with working proof of concept on the bot on our server. then you can report this issue via [Huntr](https://huntr.dev/) to get awarded and help me fixing the issue by sumitting code fixed, otherwise you can just open an issue with it on github or email me at my personal email and i will respond ASAP.
 
 ## Found This Tool Helpful? :heartbeat:
 - In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a :star:. stars helps the project to be visible to more people.
