@@ -7,9 +7,11 @@ def commandInjection(argument , RCE):
     argumentFinder = re.search(r"(..*\-|^\-)[a-zA-Z]", argument)
     if argumentFinder != None:
         argument = argument.split(' ')[1].strip()
-        if not argument.startswith('https://') or not argument.startswith('http://'):
-            return False
-        else:
+        if argument.startswith('https://'):
             return True
+        elif argument.startswith('http://'):
+            return True
+        else:
+            return False
     else:
         return True
