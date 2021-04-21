@@ -393,8 +393,8 @@ async def paramspider(ctx, *, argument):
 async def recon(ctx , *, argument):
     if path.exists(f'/{USER}/{RECON_PATH}/{argument}'):
         try:
-            Path = f'/{USER}/{RECON_PATH}/{argument}'.replace('//' , '/')
-            Data = open(Path.replace('..', '')).read().rstrip()
+            Path = f'/{USER}/{RECON_PATH}/{argument}'.replace('//' , '/').replace('..', '')
+            Data = open(Path).read().rstrip()
             Data = removeColors.Remove(Text=Data)
             Message = f"""```{Data}```"""
         except Exception:
