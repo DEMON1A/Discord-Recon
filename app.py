@@ -58,7 +58,7 @@ async def nslookup(ctx , *, argument):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
-    Results = subprocess.check_output([f'nslookup {argument}'] , shell=True).decode('UTF-8')
+    Results = subprocess.check_output(['nslookup', f'{argument}'] , shell=False).decode('UTF-8')
     await ctx.send(f'{Results}')
 
 @Client.command()
@@ -89,7 +89,7 @@ async def dig(ctx , * , argument):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
-    Output = subprocess.check_output([f'dig {argument}'] , shell=True).decode('UTF-8')
+    Output = subprocess.check_output(['dig', f'{argument}'] , shell=False).decode('UTF-8')
     
     if len(Output) > 2000:
         RandomStr = randomStrings.Genrate()
