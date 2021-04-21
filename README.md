@@ -67,3 +67,4 @@ chmod +x bash/clean.sh
 - [subjs](https://github.com/lc/subjs) - [@lc](https://github.com/lc)
 - [smuggler](https://github.com/defparam/smuggler) - [@defparam](https://github.com/defparam)
 - [httpx](https://github.com/projectdiscovery/httpx) - [@projectdiscovery](https://github.com/projectdiscovery)
+- [notify](https://github.com/projectdiscovery/notify) - [@projectdiscovery](https://github.com/projectdiscovery)
