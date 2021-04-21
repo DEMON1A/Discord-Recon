@@ -15,16 +15,19 @@ from assets import fileSize
 from assets import filesUploader
 from assets import subdomainsFilter
 
+discordIntents = discord.Intents.default()
+discordIntents.members = True
+
 Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
 
 # Define globals
 logsItems = logsParser.logsParser()
-if not logsItems: logsItems = {}
+if not logsItems or len(logsItems) == 0: logsItems = {}
 
 resolvedItems = resolvedParser.resolvedParser()
-if not resolvedItems: resolvedItems = {}
+if not resolvedItems or len(resolvedItems) == 0: resolvedItems = {}
 
-# Commands
+# Helpful commands 
 @Client.command()
 async def exec(ctx , *, argument):
     for ADMIN in ADMINS:
@@ -70,7 +73,9 @@ async def whois(ctx , *, argument):
         RandomStr = randomStrings.Genrate()
 
         with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
+            Message.write(Output)
+            Message.close()
+
             await ctx.send("Whois Results: ", file=discord.File(f"messages/{RandomStr}"))
             await ctx.send(f"\n**- {ctx.message.author}**")
     else:
@@ -85,15 +90,50 @@ async def dig(ctx , * , argument):
         return
 
     Output = subprocess.check_output([f'dig {argument}'] , shell=True).decode('UTF-8')
-    await ctx.send("**Dig Results:**")
-    await ctx.send(f"```{Output}```")
-    await ctx.send(f"\n**- {ctx.message.author}**")
+    
+    if len(Output) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            await ctx.send("Dig Results: ", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send("**Dig Results:**")
+        await ctx.send(f"```{Output}```")
+        await ctx.send(f"\n**- {ctx.message.author}**")
 
 @Client.command()
 async def ip(ctx , *, argument):
     Message = getIp.getIp(Domain=argument)
     await ctx.send(Message)
 
+@Client.command()
+async def prips(ctx, *, argument):
+    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    Output = subprocess.check_output([f'prips {argument}'] , shell=True)
+    Output = Output.decode('UTF-8')
+
+    if len(Output) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            await ctx.send("Prips Results: ", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send("**Prips Results:**")
+        await ctx.send(f"```{Output}```")
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
+# Tools commands
 @Client.command()
 async def dirsearch(ctx , *, argument):
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
@@ -153,7 +193,7 @@ async def gitgraber(ctx , *, argument):
 
     Path = TOOLS['gitgraber']; MainPath = getcwd(); chdir(Path)
     await ctx.send(f"**Running Your GitGraber Scan, See gitGraber Channel For Possible Leaks**")
-    _ = subprocess.Popen(f'python3 gitGrabephp,html,csv,sql,db,conf,cgi,log,aspx,inir.py -k wordlists/keywords.txt -q {argument} -d' , shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
+    _ = subprocess.Popen(f'python3 gitGraber.py -k wordlists/keywords.txt -q {argument} -d' , shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
     chdir(MainPath)
 
 @Client.command()
@@ -354,7 +394,7 @@ async def recon(ctx , *, argument):
     if path.exists(f'/{USER}/{RECON_PATH}/{argument}'):
         try:
             Path = f'/{USER}/{RECON_PATH}/{argument}'.replace('//' , '/')
-            Data = open(Path).read().rstrip()
+            Data = open(Path.replace('..', '')).read().rstrip()
             Data = removeColors.Remove(Text=Data)
             Message = f"""```{Data}```"""
         except Exception:
@@ -742,7 +782,7 @@ async def count(ctx , *, argument):
 
         await ctx.send(f"**There's {str(resolvedLength)} Live Hosts For {argument}**")
     except Exception:
-        await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
+        await ctx.send("**There's no subdomains has been collected for this target. please use ** `.subdomains [TARGET]` ** Then try again.**")
         return
 
     try:
@@ -758,8 +798,8 @@ async def count(ctx , *, argument):
 # Main Event With Admin Channel Logger.
 @Client.event
 async def on_member_join(member):
-    adminChannel = Client.get_channel(ADMIN_CHANNEL)
-    await adminChannel.send(f"{member} Has Joined The Server.")
+    welcomeMessage = f"**Welcome to {SERVER_NAME}\n\nYou can do your recon from the server to get fast results\notherwise, you can make your recon from the DMs to keep your hunting process private\n\nand if you find discord-recon helpful make sure to start it on github: https://github.com/DEMON1A/Discord-Recon**"
+    await member.send(welcomeMessage)
 
 @Client.event
 async def on_member_remove(member):
