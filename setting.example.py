@@ -5,6 +5,7 @@ ADMINS = ["Duck#6560"]
 DEBUG = False
 COMMANDS_PREFIX = "."
 ADMIN_CHANNEL = 812515205082906641
+DISABLE_NUCLEI_INFO = True
 
 TOOLS = {
     "dirsearch":f"/{USER}/tools/dirsearch/",
