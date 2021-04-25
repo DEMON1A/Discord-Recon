@@ -1,6 +1,7 @@
 # Security Policy
 
 ## Supported Versions
+- Just to keep you updated even if there's something wrong with the policy. only the latest two versions on discord-recon or supported here. if you're reporting security issues to versions lower than the latest two version it will only be accepted on rare cases.
 
 | Version | Supported          |
 | ------- | ------------------ |
