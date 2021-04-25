@@ -580,7 +580,10 @@ async def nuclei(ctx, *, argument):
         return
 
     await ctx.send(f"**Scanning {argument} For Possible Issues Using Nuclei.**")
-    _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    if DISABLE_NUCLEI_INFO:
+        _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | grep -v 'info.*\]' | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    else:
+         _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
     await ctx.send("**Results gonna be sent to notify webhook channel**")
 
 @Client.command()
