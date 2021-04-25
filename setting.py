@@ -5,6 +5,7 @@ ADMINS = ['']
 DEBUG = False
 COMMANDS_PREFIX = "."
 ADMIN_CHANNEL = 
+DISABLE_NUCLEI_INFO = True
 
 TOOLS = {
     "dirsearch":f"/{USER}/",
