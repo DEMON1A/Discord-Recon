@@ -67,7 +67,7 @@ async def whois(ctx , *, argument):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
-    Output = subprocess.check_output([f'whois {argument}'] , shell=True).decode('UTF-8')
+    Output = subprocess.check_output(['whois', f'{argument}'] , shell=False).decode('UTF-8')
 
     if len(Output) > 2000:
         RandomStr = randomStrings.Genrate()
