@@ -54,6 +54,8 @@ chmod +x bash/clean.sh
 ## Security
 - We care about discord-recon security specially because it interacts with the internal server and any security issues can result in server-side issues, if you think that you found a security issue on discord-recon with working proof of concept on the bot on our server. then you can report this issue via [Huntr](https://huntr.dev/) to get awarded and help me fixing the issue by sumitting code fixes, otherwise you can just open an issue with it on github or email me at my personal email and i will respond ASAP.
 
+- It's really not safe to run discord-recon from your system with high privileges, i would suggest creating a user with low privileges and run the bot from it, then give the user the access into the tools. 
+
 ## Found This Tool Helpful? :heartbeat:
 - In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a :star:. stars helps the project to be visible to more people.
 
