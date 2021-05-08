@@ -67,7 +67,7 @@ async def whois(ctx , *, argument):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
-    Output = subprocess.check_output(['whois', f'{argument}'] , shell=False).decode('UTF-8')
+    Output = subprocess.check_output([f'whois {argument}'] , shell=True).decode('UTF-8')
 
     if len(Output) > 2000:
         RandomStr = randomStrings.Genrate()
@@ -770,6 +770,11 @@ async def count(ctx , *, argument):
         return
 
 # Main Event With Admin Channel Logger.
+@Client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send('**Invalid command, please type `.help` to see the list of commands and tools.**')
+
 @Client.event
 async def on_member_join(member):
     welcomeMessage = f"**Welcome to {SERVER_NAME}\n\nYou can do your recon from the server to get fast results\notherwise, you can make your recon from the DMs to keep your hunting process private\n\nand if you find discord-recon helpful make sure to start it on github: https://github.com/DEMON1A/Discord-Recon**"
