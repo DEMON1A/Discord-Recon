@@ -9,13 +9,12 @@ ADMIN_CHANNEL =
 DISABLE_NUCLEI_INFO = True
 
 TOOLS = {
-    "dirsearch":f"/{USER}/",
-    "arjun":f"/{USER}/",
-    "gitgraber":f"/{USER}/",
-    "findomain":f"/{USER}/",
-    "nuclei-templates":f"/{USER}/",
-    "paramspider":f"{USER}/",
-    "smuggler":f"{USER}/"
+    "dirsearch":"tools/dirsearch/",
+    "gitgraber":"tools/gitGraber/",
+    "findomain":"tools/findomain-linux",
+    "nuclei-templates":"tools/nuclei-templates/",
+    "paramspider":"tools/ParamSpider/",
+    "smuggler":"tools/smuggler/"
 }
 
 RCE = [';' , '`' , '$' , '(' , ')' , '|' , '&', '\n', '<', '>']
