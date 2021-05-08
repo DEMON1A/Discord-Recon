@@ -53,6 +53,30 @@ async def exec(ctx , *, argument):
     await ctx.send(f"**You're Not Authorized To Make Commands To The Server.**")
 
 @Client.command()
+async def compile(ctx, *, argument):
+    if PYTHON_COMPILE:
+        Message = pyExecute.detectContent(argument)
+
+        if Message != '':
+            await ctx.send("**Compiled Python Code Output:**")
+            await ctx.send(Message)
+        else:
+            await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
+    else:
+        for ADMIN in ADMINS:
+            if str(ctx.message.author) == ADMIN:
+                Message = pyExecute.detectContent(argument)
+
+                if Message != '':
+                    await ctx.send("**Compiled Python Code Output:**")
+                    await ctx.send(Message)
+                else:
+                    await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
+                return ''
+
+        await ctx.send("**You're not allowed to execute python codes here**")
+    
+@Client.command()
 async def nslookup(ctx , *, argument):
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
