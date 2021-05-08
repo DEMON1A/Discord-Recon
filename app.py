@@ -187,11 +187,10 @@ async def arjun(ctx , *, argument):
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
-    
-    Path = TOOLS['arjun']; MainPath = getcwd(); chdir(Path)
+
     await ctx.send(f"**Running Your Arjun Scan, We Will Send The Results When It's Done**")
     await ctx.send(f"**Note: The Bot Won't Respond Until The Scan is Done. All Of Your Commands Now Will Be Executed After This Process is Done.")
-    Process = subprocess.Popen(f'python3 arjun.py -u {argument}' , shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    Process = subprocess.Popen(f'arjun -u {argument}', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
     Output = removeColors.Remove(Output); chdir(MainPath)
     Output = removeString.removeString('Processing' , Output=Output)
