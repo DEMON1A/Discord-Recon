@@ -98,3 +98,4 @@ bash ./bash/installer.sh
 - [smuggler](https://github.com/defparam/smuggler) - [@defparam](https://github.com/defparam)
 - [httpx](https://github.com/projectdiscovery/httpx) - [@projectdiscovery](https://github.com/projectdiscovery)
 - [notify](https://github.com/projectdiscovery/notify) - [@projectdiscovery](https://github.com/projectdiscovery)
+- [ParamSpider](https://github.com/devanshbatham/ParamSpider) - [@devanshbatham](https://github.com/devanshbatham)
