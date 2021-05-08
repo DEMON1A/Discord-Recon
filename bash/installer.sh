@@ -86,7 +86,3 @@ mv ParamSpider/ tools/
 echo -e "${GREEN}ParamSpider installed${ENDCOLOR}"
 
 echo -e "${RED}All tools has been installed, please make sure to configure them before running the bot${ENDCOLOR}"
-
-# echo -e "${GREEN}Installing x${ENDCOLOR}"
-# echo -e "${GREEN}X installed${ENDCOLOR}"
-# echo 
