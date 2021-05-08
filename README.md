@@ -59,6 +59,11 @@ chmod +x bash/clean.sh
 ## Found This Tool Helpful? :heartbeat:
 - In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a :star:. stars helps the project to be visible to more people.
 
+# Collaborators 💝
+- [@0xWise64](https://github.com/0xWise64) - Reported Security Issues On Discord-Recon, Helped With The Development Process
+- [@Ry0taK](https://github.com/Ry0taK) - Reported Security Issues On Discord-Recon
+- [@SecurityHook](https://github.com/SecurityHook) - Reported Security Issues On Discord-Recon
+
 # Credits :sparkles:
 - [assetfinder](https://github.com/tomnomnom/assetfinder) - [@tomnomnom](https://github.com/tomnomnom)
 - [subfinder](https://github.com/projectdiscovery/subfinder) - [@projectdiscovery](https://github.com/projectdiscovery)
