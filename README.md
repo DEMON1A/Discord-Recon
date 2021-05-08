@@ -4,6 +4,26 @@
 ## What's Discord Recon? :confused:
 - Discord Recon is a Cool Discord Bot Working On Your Server To Make It Easy To Do Recon From Your Discord Server. The Bot Has Been Linked With Many Tools Like: Nuclei, Findomain, Assetfinder, Subfinder, Arjun, ParamSpider, Waybackurls, Dirsearch And gitGraber. You Can Use All Of These Tools Via The Bot Using Only Discord Commands. Also, Discord Recon Allows You To Automate Subdomains Collection Process. It's Using Assetfinder, Findomain And Subfinder To Collect Subdomains, Sort Them Using Python Function. Then Filter Them Using httpx. And The Output Is Getting Saved On The Server. Anytime You Want To Use This Data For Nuclei Scans Or Any Other Scans That Wiil Be Added Soon. You Can Just Call The Scan Function And It Will Use The Subdomains That Got Saved Before. 
 
+## Setup Discord-Recon On Your Server :relieved:
+1. Download Discord-Recon Source Code Using
+
+```
+git clone https://github.com/DEMON1A/Discord-Recon/
+```
+
+2. Make Sure You Have Both `python3` and `golang` On Your System.
+3. Run Discord-Recon Tools Installer From The Main Folder And Make Sure There's No Errors Using:
+
+```
+bash ./bash/installer.sh
+```
+
+4. Modify Your `setting.py` File With The Options You Like
+5. Add You Discord Webhook URL Into Notify Config
+6. Run `app.py` With The Command: `python3 app.py` And Feel Free To Open an Issue If Something Isn't Working
+
+**NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm yourself.**
+
 ## Setup Variables :star:
 - `DISCORD_TOKEN` - Your Discord Bot Token
 - `USER` - Path To Your OS User
@@ -47,10 +67,8 @@
 - Sure You Can. Just Open an Issue With The Tool Name. And It Will Be Added In Both. The Source Code And The Our Discord Server.
 
 ## Wanna Delete Your Bot Data? :worried:
-```
-chmod +x bash/clean.sh
-./bash/clean.sh
-```
+1. chmod +x bash/clean.sh
+2. bash/clean.sh
 
 ## Security
 - We care about discord-recon security specially because it interacts with the internal server and any security issues can result in server-side issues, if you think that you found a security issue on discord-recon with working proof of concept on the bot on our server. then you can report this issue via [Huntr](https://huntr.dev/) to get awarded and help me fixing the issue by sumitting code fixes, otherwise you can just open an issue with it on github or email me at my personal email and i will respond ASAP.
