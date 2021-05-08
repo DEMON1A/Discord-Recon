@@ -75,8 +75,8 @@ bash ./bash/installer.sh
 
 - It's really not safe to run discord-recon from your system with high privileges, i would suggest creating a user with low privileges and run the bot from it, then give the user the access into the tools. 
 
-## Found This Tool Helpful? :heartbeat:
-- In case you see that this tool is helpful. supporting the developer will be great. but not recommended in the current time. otherwise, i will be really thankful if you give this repo a :star:. stars helps the project to be visible to more people.
+## Found Discord-Recon Helpful? :heartbeat:
+- In case you see that discord-recon is helpful. giving the project a :star: will be great. but you can always support discord-recon via the sponser links on the project, to keep it active and updated with more server resources to serve many users as possible.
 
 # Collaborators 💝
 - [@0xWise64](https://github.com/0xWise64) - Reported Security Issues On Discord-Recon, Helped With The Development Process
