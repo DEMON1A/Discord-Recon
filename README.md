@@ -17,6 +17,7 @@
 
 ## Commands: :thought_balloon:
 - `.exec` - Execute Shell Commands On The Server.
+- `.compile` - Execute a Python3 Code On The Server
 - `.ip` - Get The Domain IP
 - `.dig` - Run dig
 - `.prips` - Genrate IPs from a company IP range
