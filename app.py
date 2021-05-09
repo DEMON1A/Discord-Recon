@@ -1,6 +1,7 @@
-import discord , subprocess , datetime
+import discord , subprocess
 from discord.ext import commands
 from settings import *
+from datetime import datetime
 from os import path , getcwd , chdir
 
 from assets import CommandInjection
@@ -15,11 +16,12 @@ from assets import fileSize
 from assets import filesUploader
 from assets import subdomainsFilter
 from assets import pyExecute
+from assets import commandsLogger
 
 discordIntents = discord.Intents.default()
 discordIntents.members = True
 
-Client = commands.Bot(command_prefix=COMMANDS_PREFIX)
+Client = commands.Bot(command_prefix=COMMANDS_PREFIX, intents=discordIntents)
 
 # Define globals
 logsItems = logsParser.logsParser()
@@ -76,7 +78,7 @@ async def compile(ctx, *, argument):
                 return ''
 
         await ctx.send("**You're not allowed to execute python codes here**")
-    
+
 @Client.command()
 async def nslookup(ctx , *, argument):
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
@@ -92,7 +94,7 @@ async def whois(ctx , *, argument):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
         return
 
-    Output = subprocess.check_output(['whois', f'{argument}'] , shell=False).decode('UTF-8')
+    Output = subprocess.check_output(['whois', f'{argument}'], shell=False).decode('UTF-8')
 
     if len(Output) > 2000:
         RandomStr = randomStrings.Genrate()
@@ -800,18 +802,28 @@ async def on_command_error(ctx, error):
         await ctx.send('**Invalid command, please type `.help` to see the list of commands and tools.**')
 
 @Client.event
+async def on_command(ctx):
+    Author = ctx.author
+    Command = ctx.command
+
+    Date = datetime.now()
+    Date = f"{Date.year}:{Date.month}:{Date.day}"
+
+    commandsLogger.logCommand(Command, Author, Date)
+
+@Client.event
 async def on_member_join(member):
-    welcomeMessage = f"**Welcome to {SERVER_NAME}\n\nYou can do your recon from the server to get fast results\notherwise, you can make your recon from the DMs to keep your hunting process private\n\nand if you find discord-recon helpful make sure to start it on github: https://github.com/DEMON1A/Discord-Recon**"
+    welcomeMessage = f"**Welcome to {SERVER_NAME}\n\nYou can do your recon from the server to get fast results\notherwise, you can make your recon from the DMs to keep your hunting process private\n\nand if you find discord-recon helpful make sure to star it on github: https://github.com/DEMON1A/Discord-Recon**"
     await member.send(welcomeMessage)
 
 @Client.event
 async def on_member_remove(member):
     adminChannel = Client.get_channel(ADMIN_CHANNEL)
-    await adminChannel.send(f"{member} Has Left The Server.")
+    await adminChannel.send(f"**{member}** has left the server.")
 
 @Client.event
 async def on_ready():
-    Dates = datetime.datetime.now()
+    Dates = datetime.now()
     Message = f"**ReconServer Started To Work On {Dates.year}-{Dates.month}-{Dates.day}**"
     adminChannel = Client.get_channel(ADMIN_CHANNEL)
     await adminChannel.send(Message)
