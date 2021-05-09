@@ -1,6 +1,6 @@
 import discord , subprocess , datetime
 from discord.ext import commands
-from setting import *
+from settings import *
 from os import path , getcwd , chdir
 
 from assets import CommandInjection
