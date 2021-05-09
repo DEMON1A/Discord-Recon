@@ -14,6 +14,7 @@ from assets import resolvedParser
 from assets import fileSize
 from assets import filesUploader
 from assets import subdomainsFilter
+from assets import pyExecute
 
 discordIntents = discord.Intents.default()
 discordIntents.members = True
