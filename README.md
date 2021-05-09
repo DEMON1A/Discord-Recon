@@ -18,11 +18,11 @@ git clone https://github.com/DEMON1A/Discord-Recon/
 bash ./bash/installer.sh
 ```
 
-4. Modify Your `setting.py` File With The Options You Like
+4. Modify Your `settings.py` File With The Options You Like
 5. Add Your Discord Webhook URL Into Notify Config
 6. Run `app.py` With The Command: `python3 app.py` And Feel Free To Open an Issue If Something Isn't Working
 
-**NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm yourself.**
+**NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm your machine.**
 
 ## Setup Variables :star:
 - `DISCORD_TOKEN` - Your Discord Bot Token
