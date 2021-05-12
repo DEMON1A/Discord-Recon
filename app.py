@@ -1,8 +1,8 @@
-import discord , subprocess
+import discord , subprocess, sys
 from discord.ext import commands
 from settings import *
 from datetime import datetime
-from os import path , getcwd , chdir
+from os import path , getcwd , chdir, execl
 
 from assets import CommandInjection
 from assets import getIp
@@ -55,6 +55,21 @@ async def exec(ctx , *, argument):
         else: pass
     await ctx.send(f"**You're Not Authorized To Make Commands To The Server.**")
 
+@Client.command()
+async def shutdown(ctx):
+    for ADMIN in ADMINS:
+        if str(ctx.message.author) == ADMIN:
+            await ctx.send("**Stoping the bot based on admin command**")
+            await ctx.bot.logout()
+            return
+    await ctx.send("**Only admins allowed to shutdown the bot**")
+
+@Client.command()
+async def restart(ctx):
+    await ctx.send(f"**Restarting {SERVER_NAME}, It might take up to one minute**")
+    python = sys.executable
+    execl(python, python, * sys.argv)
+    
 @Client.command()
 async def compile(ctx, *, argument):
     if PYTHON_COMPILE:
