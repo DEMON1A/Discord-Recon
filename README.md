@@ -55,6 +55,7 @@ sudo bash ./bash/installer.sh
 - `.assetfinder` - Start Assetfinder
 - `.findomain` - Start Findomain
 - `.paramspider` - Start ParamSpider
+- `.trufflehog` - Start truffleHog
 - `.recon` - Read Internal Recon File
 - `.subdomains` - Collect Subdomains
 - `.show` - Show Targets We Have On The Database
