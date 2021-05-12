@@ -1,4 +1,3 @@
-from re import A
 import discord , subprocess, sys
 from discord.ext import commands
 from settings import *
