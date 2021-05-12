@@ -1,7 +1,9 @@
+from re import A
 import discord , subprocess, sys
 from discord.ext import commands
 from settings import *
 from datetime import datetime
+from urllib.parse import urlparse
 from os import path , getcwd , chdir, execl
 
 from assets import CommandInjection
@@ -69,7 +71,7 @@ async def restart(ctx):
     await ctx.send(f"**Restarting {SERVER_NAME}, It might take up to one minute**")
     python = sys.executable
     execl(python, python, * sys.argv)
-    
+
 @Client.command()
 async def compile(ctx, *, argument):
     if PYTHON_COMPILE:
@@ -426,6 +428,49 @@ async def paramspider(ctx, *, argument):
                 await ctx.send(f"\n**- {ctx.message.author}**")
     else:
         await ctx.send(f'**ParamSpider Results:**')
+        await ctx.send(f'```{Output}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
+@Client.command()
+async def trufflehog(ctx, *, argument):
+    if not CommandInjection.commandInjection(RCE=RCE, argument=argument):
+        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return 
+
+    # URL validation
+    urlHost = urlparse(argument).netloc
+    if urlHost != "github.com" and urlHost != "gitlab.com":
+        await ctx.send("**You're trying to scan unallowed URL, please use a github/gitlab URL.**")
+        return
+
+    await ctx.send(f"**Scanning {argument} for possible data leaks using truffleHog**")
+    Process = subprocess.Popen(f"trufflehog --regex --entropy=False {argument}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    Output = Process.communicate()[0].decode('UTF-8')
+    Output = removeColors.Remove(Text=Output)
+
+    if len(Output) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"truffleHog Results: {URL_}")
+            else:
+                await ctx.send("**truffleHog Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
+    else:
+        await ctx.send(f'**truggleHog Results:**')
         await ctx.send(f'```{Output}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
@@ -839,7 +884,7 @@ async def on_member_remove(member):
 @Client.event
 async def on_ready():
     Dates = datetime.now()
-    Message = f"**ReconServer Started To Work On {Dates.year}-{Dates.month}-{Dates.day}**"
+    Message = f"**ReconServer Started To Work at {Dates.year}-{Dates.month}-{Dates.day}**"
     adminChannel = Client.get_channel(ADMIN_CHANNEL)
     await adminChannel.send(Message)
 
