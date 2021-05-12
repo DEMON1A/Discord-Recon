@@ -195,7 +195,7 @@ async def arjun(ctx , *, argument):
     await ctx.send(f"**Note: The Bot Won't Respond Until The Scan is Done. All Of Your Commands Now Will Be Executed After This Process is Done.")
     Process = subprocess.Popen(f'arjun -u {argument}', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
-    Output = removeColors.Remove(Output); chdir(MainPath)
+    Output = removeColors.Remove(Output)
     Output = removeString.removeString('Processing' , Output=Output)
 
     if len(Output) > 2000:
