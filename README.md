@@ -39,6 +39,8 @@ bash ./bash/installer.sh
 ## Commands: :thought_balloon:
 - `.exec` - Execute Shell Commands On The Server.
 - `.compile` - Execute a Python3 Code On The Server
+- `.shutdown` - Shutdown The Bot
+- `.restart` - Restart The Bot.
 - `.ip` - Get The Domain IP
 - `.dig` - Run dig
 - `.prips` - Genrate IPs from a company IP range
