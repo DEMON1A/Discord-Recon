@@ -20,7 +20,7 @@ sudo bash ./bash/installer.sh
 ```
 
 4. Modify Your `settings.py` File With The Options You Like
-5. Add Your Discord Webhook URL Into Notify Config'
+5. Add Your Discord Webhook URL Into Notify Config
 6. Edit Gitgraber Config and Add Your Github Token And Discord Webhook
 7. Run `app.py` With The Command: `python3 app.py` And Feel Free To Open an Issue If Something Isn't Working
 
