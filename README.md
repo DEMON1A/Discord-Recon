@@ -9,6 +9,7 @@
 
 ```
 git clone https://github.com/DEMON1A/Discord-Recon/
+cd Discord-Recon/
 ```
 
 2. Make Sure You Have Both `python3` and `golang` On Your System.
