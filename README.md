@@ -104,3 +104,4 @@ sudo bash ./bash/installer.sh
 - [httpx](https://github.com/projectdiscovery/httpx) - [@projectdiscovery](https://github.com/projectdiscovery)
 - [notify](https://github.com/projectdiscovery/notify) - [@projectdiscovery](https://github.com/projectdiscovery)
 - [ParamSpider](https://github.com/devanshbatham/ParamSpider) - [@devanshbatham](https://github.com/devanshbatham)
+- [truffleHog](https://github.com/trufflesecurity/truffleHog) - [@trufflesecurity](https://github.com/trufflesecurity)
