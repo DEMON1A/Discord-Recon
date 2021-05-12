@@ -469,7 +469,7 @@ async def trufflehog(ctx, *, argument):
                 await ctx.send("**truffleHog Results:**", file=discord.File(f"messages/{RandomStr}"))
                 await ctx.send(f"\n**- {ctx.message.author}**")
     elif len(Output) == 0:
-        await ctx.send(f"**truffleHog couldn't fine leaks on: {argument}**")
+        await ctx.send(f"**truffleHog couldn't find leaks on: {argument}**")
     else:
         await ctx.send(f'**truggleHog Results:**')
         await ctx.send(f'```{Output}```')
