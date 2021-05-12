@@ -70,6 +70,11 @@ pip3 install arjun
 echo -e "${GREEN}Arjun installed${ENDCOLOR}"
 echo 
 
+echo -e "${GREEN}Installing truggleHog${ENDCOLOR}"
+pip3 install truffleHog
+echo -e "${GREEN}Trugglehog installed${ENDCOLOR}"
+echo
+
 echo -e "${GREEN}Installing dirsearch${ENDCOLOR}"
 git clone https://github.com/maurosoria/dirsearch.git
 mv dirsearch/ tools/
