@@ -171,7 +171,7 @@ async def dirsearch(ctx , *, argument):
     await ctx.send(f"**Running Your Dirsearch Scan, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f'python3 dirsearch.py -u {argument} -e php,html,csv,sql,db,conf,cgi,log,aspx,ini -b' , shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
-    Output = removeColors.Remove(Output); chdir(MainPath)
+    Output = removeColors.Remove(Output)
 
     if len(Output) > 2000:
         RandomStr = randomStrings.Genrate()
