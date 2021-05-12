@@ -3,6 +3,20 @@ RED="\e[31m"
 GREEN="\e[32m"
 ENDCOLOR="\e[0m"
 
+# installing linux based tools
+echo -e "${RED}Installing linux based tools${ENDCOLOR}"
+echo 
+
+echo -e "${GREEN}Installing prips${ENDCOLOR}"
+sudo apt-get install prips
+echo -e "${GREEN}Prips installed${ENDCOLOR}"
+echo
+
+echo -e "${GREEN}Installing whois${ENDCOLOR}"
+sudo apt-get install whois
+echo -e "${GREEN}Whois installed${ENDCOLOR}"
+echo
+
 # golang tools
 echo -e "${RED}Installing httpx, assetfinder, nuclei, subjack, subjs${ENDCOLOR}"
 echo 
