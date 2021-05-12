@@ -15,7 +15,7 @@ git clone https://github.com/DEMON1A/Discord-Recon/
 3. Run Discord-Recon Tools Installer From The Main Folder And Make Sure There's No Errors Using:
 
 ```
-bash ./bash/installer.sh
+sudo bash ./bash/installer.sh
 ```
 
 4. Modify Your `settings.py` File With The Options You Like
