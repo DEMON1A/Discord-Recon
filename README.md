@@ -67,7 +67,7 @@ sudo bash ./bash/installer.sh
 - `.smuggler` - Run Smuggler On Collected Subdomains.
 
 ## Don't Have a Server To Host The Bot? :worried:
-- I Did Already Run The Bot On My Own Discord Server, You Can Join Using This URL: https://discord.gg/RBkQk86x2g. But For Now, gitGraber Results Are Only Available For Supporters. And Some Other Scans Including The New Functions Will Be Like That. Supprting Discord Recon Will Give You Lifetime Access To The Bot. We Use The Donations To Upgrade The Server Resources So We Will Be Able To Add More Features. So We Need To Limit Bot Access.
+- I Did Already Run The Bot On My Own Discord Server, You Can Join Using This URL: https://discord.gg/RBkQk86x2g. At the time of writing this, Discord-Recon is fully free for all users and doesn't require supporting to get access into some tools, but that might get changed soon when we update our service.
 
 ## Suggest New Tool Support? :boom:
 - Sure You Can. Just Open an Issue With The Tool Name. And It Will Be Added In Both. The Source Code And The Our Discord Server.
