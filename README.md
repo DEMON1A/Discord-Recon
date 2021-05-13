@@ -56,6 +56,7 @@ sudo bash ./bash/installer.sh
 - `.findomain` - Start Findomain
 - `.paramspider` - Start ParamSpider
 - `.trufflehog` - Start truffleHog
+- `.gitls` - Start gitls
 - `.recon` - Read Internal Recon File
 - `.subdomains` - Collect Subdomains
 - `.show` - Show Targets We Have On The Database
