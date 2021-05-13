@@ -475,6 +475,44 @@ async def trufflehog(ctx, *, argument):
         await ctx.send(f'```{Output}```')
         await ctx.send(f"\n**- {ctx.message.author}**")
 
+@Client.command()
+async def gitls(ctx, *, argument):
+    if not CommandInjection.commandInjection(RCE=RCE, argument=argument):
+        await ctx.send("Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
+        return
+
+    await ctx.send("**Collecting github projects using gitls**")
+    Process = subprocess.Popen(f"echo https://github.com/{argument} | gitls", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    Output = Process.communicate()[0].decode('UTF-8')
+
+    if len(Output) > 2000:
+        RandomStr = randomStrings.Genrate()
+
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(Output)
+            Message.close()
+
+            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
+            if not messageSize:
+                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                return
+            elif messageSize > 8:
+                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
+                if not URL_:
+                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
+                    return
+                else:
+                    await ctx.send(f"Gitls Results: {URL_}")
+            else:
+                await ctx.send("**truffleHog Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send(f"\n**- {ctx.message.author}**")
+    elif len(Output) == 0:
+        await ctx.send(f"**Gitls didn't reutrn an output for your command**")
+    else:
+        await ctx.send(f'**Gitls Results:**')
+        await ctx.send(f'```{Output}```')
+        await ctx.send(f"\n**- {ctx.message.author}**")
+
 # My Own Recon Data. It Isn't About You.
 @Client.command()
 async def recon(ctx , *, argument):
