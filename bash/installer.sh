@@ -51,6 +51,11 @@ GO111MODULE=on go get -v github.com/projectdiscovery/notify/cmd/notify
 echo -e "${GREEN}Notify installed${ENDCOLOR}"
 echo
 
+echo -e "${GREEN}Installing gitls${ENDCOLOR}"
+GO111MODULE=on go get -v github.com/hahwul/gitls
+echo -e "${GREEN}Gitls installed${ENDCOLOR}"
+echo 
+
 echo -e "${RED}Golang based tools has been installed, installing other tools${ENDCOLOR}"
 echo
 
