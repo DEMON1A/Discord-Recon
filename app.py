@@ -504,7 +504,7 @@ async def gitls(ctx, *, argument):
                 else:
                     await ctx.send(f"Gitls Results: {URL_}")
             else:
-                await ctx.send("**truffleHog Results:**", file=discord.File(f"messages/{RandomStr}"))
+                await ctx.send("**Gitls Results:**", file=discord.File(f"messages/{RandomStr}"))
                 await ctx.send(f"\n**- {ctx.message.author}**")
     elif len(Output) == 0:
         await ctx.send(f"**Gitls didn't reutrn an output for your command**")
