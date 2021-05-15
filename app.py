@@ -18,6 +18,7 @@ from assets import filesUploader
 from assets import subdomainsFilter
 from assets import pyExecute
 from assets import commandsLogger
+from assets import statusCode
 
 discordIntents = discord.Intents.default()
 discordIntents.members = True
@@ -438,13 +439,19 @@ async def trufflehog(ctx, *, argument):
 
     # URL validation
     urlHost = urlparse(argument).netloc
-    urlScheme = urlparse(argument).scheme
     if urlHost != "github.com" and urlHost != "gitlab.com":
         await ctx.send("**You're trying to scan unallowed URL, please use a github/gitlab URL.**")
         return
     
-    if urlScheme not in ["http","https"]:
+    urlScheme = urlparse(argument).scheme
+    if urlScheme not in ["http", "https"]:
         await ctx.send("**You're trying to scan unallowed URL, please use a github/gitlab URL.**")
+        return
+
+    # status code validation
+    statusCode = statusCode.getCode(argument)
+    if statusCode == 404:
+        await ctx.send("**The project you're trying to scan doesn't exists, double check the URL**")
         return
 
     await ctx.send(f"**Scanning {argument} for possible data leaks using truffleHog**")
@@ -711,9 +718,9 @@ async def nuclei(ctx, *, argument):
 
     await ctx.send(f"**Scanning {argument} For Possible Issues Using Nuclei.**")
     if DISABLE_NUCLEI_INFO:
-        _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | grep -v 'info.*\]' | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+        _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | grep -v 'info.*\]' | notify -discord-webhook-url {NUCLEI_DISCORD_WEBHOOK}",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
     else:
-         _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+         _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify -discord-webhook-url {NUCLEI_DISCORD_WEBHOOK}",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
     await ctx.send("**Results gonna be sent to notify webhook channel**")
 
 @Client.command()
