@@ -438,19 +438,20 @@ async def trufflehog(ctx, *, argument):
         return 
 
     # URL validation
-    urlHost = urlparse(argument).netloc
+    urlParsed = urlparse(argument)
+    urlHost = urlParsed.netloc
     if urlHost != "github.com" and urlHost != "gitlab.com":
         await ctx.send("**You're trying to scan unallowed URL, please use a github/gitlab URL.**")
         return
     
-    urlScheme = urlparse(argument).scheme
+    urlScheme = urlParsed.scheme
     if urlScheme not in ["http", "https"]:
         await ctx.send("**You're trying to scan unallowed URL, please use a github/gitlab URL.**")
         return
 
     # status code validation
-    statusCode = statusCode.getCode(argument)
-    if statusCode == 404:
+    statusCodeInteger = statusCode.getCode(argument)
+    if statusCodeInteger == 404:
         await ctx.send("**The project you're trying to scan doesn't exists, double check the URL**")
         return
 
