@@ -155,6 +155,27 @@ async def ip(ctx , *, argument):
     await ctx.send(Message)
 
 @Client.command()
+async def statuscode(ctx, *, argument):
+    URLparts = urlparse(argument)
+    URLscheme = URLparts.scheme
+
+    if URLscheme == '':
+        argument = f"http://{argument}"
+    elif URLscheme not in ["http", "https"]:
+        await ctx.send("**The URL scheme you're using isn't allowed**")
+        return
+    else:
+        pass
+
+    statusCodeDict = statusCode.getStatusCodes(argument)
+    Message = ""
+
+    for method,code in statusCodeDict.items():
+        Message += f"{method}: {str(code)}\n"
+
+    await ctx.send(Message)
+
+@Client.command()
 async def prips(ctx, *, argument):
     if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
         await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
@@ -907,6 +928,25 @@ async def count(ctx , *, argument):
         await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
         return
 
+@Client.command()
+async def userscommands(ctx):
+    for ADMIN in ADMINS:
+        if str(ctx.message.author) == ADMIN:
+            commandsContent = open('data/logs/commands.easy', 'r').read()
+
+            if len(commandsContent) < 2000:
+                await ctx.message.author.send('**Users Commands:**')
+                await ctx.message.author.send(f'```{commandsContent}```')
+            else:
+                RandomStr = randomStrings.Genrate()
+                with open(f'messages/{RandomStr}' , 'w') as Message:
+                    Message.write(commandsContent)
+                    Message.close()
+
+                await ctx.message.author.send("**Users Commands:**", file=discord.File(f"messages/{RandomStr}"))
+            return
+    await ctx.send("**Only admins can view the users commands on the server.**")
+
 # Main Event With Admin Channel Logger.
 @Client.event
 async def on_command_error(ctx, error):
@@ -917,11 +957,12 @@ async def on_command_error(ctx, error):
 async def on_command(ctx):
     Author = ctx.author
     Command = ctx.command
+    Message = ctx.message.content
 
     Date = datetime.now()
     Date = f"{Date.year}:{Date.month}:{Date.day}"
 
-    commandsLogger.logCommand(Command, Author, Date)
+    commandsLogger.logCommand(Command, Author, Date, Message)
 
 @Client.event
 async def on_member_join(member):
