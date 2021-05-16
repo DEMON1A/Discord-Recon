@@ -933,6 +933,7 @@ async def userscommands(ctx):
     for ADMIN in ADMINS:
         if str(ctx.message.author) == ADMIN:
             commandsContent = open('data/logs/commands.easy', 'r').read()
+            await ctx.send(f"**{SERVER_NAME} Gonna send you the results in DM**")
 
             if len(commandsContent) < 2000:
                 await ctx.message.author.send('**Users Commands:**')
