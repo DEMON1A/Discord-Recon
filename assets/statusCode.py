@@ -8,7 +8,7 @@ def getStatusCodes(URL):
     getStatusCode = get(URL).status_code
     postStatusCode = post(URL).status_code
     putStatusCode = put(URL).status_code
-    traceStatusCode = trace(URL).status_code
+    traceStatusCode = request("TRACE", URL).status_code
     headStatusCode = head(URL).status_code
     optionStatusCode = options(URL).status_code
     patchStatusCode = patch(URL).status_code
