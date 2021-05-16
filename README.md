@@ -47,6 +47,7 @@ sudo bash ./bash/installer.sh
 - `.prips` - Genrate IPs from a company IP range
 - `.nslookup` - Run nslookup
 - `.whois` - Run Whois
+- `.statuscode` - Get status codes of subdomain/url
 - `.dirsearch` - Start dirsearch Scan
 - `.arjun` - Start Arjun Scan
 - `.gitgraber` - Start GitGraber Scan
