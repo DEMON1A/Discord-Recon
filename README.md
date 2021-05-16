@@ -1,5 +1,13 @@
-# Discord-Recon [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty) <a href="https://huntr.dev/bounties/disclose"><img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg" alt="Huntr"></a> ![](https://tokei.rs/b1/github/DEMON1A/Discord-Recon)
-- Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.
+<h1 align="center">Discord-Recon</h1>
+<p align="center">Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.</p>
+
+<p align="center">
+<a href="https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"> </a>
+<a href="https://huntr.dev/bounties/disclose"> <img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg" alt="Huntr"> </a>
+<img src="https://tokei.rs/b1/github/DEMON1A/Discord-Recon">
+<a href="https://discord.gg/RBkQk86x2g"> <img src="https://img.shields.io/discord/795756379700461589.svg?logo=discord"> </a>
+</p>
+
 
 ## What's Discord Recon? :confused:
 - Discord Recon is a Cool Discord Bot Working On Your Server To Make It Easy To Do Recon From Your Discord Server. The Bot Has Been Linked With Many Tools Like: Nuclei, Findomain, Assetfinder, Subfinder, Arjun, ParamSpider, Waybackurls, Dirsearch And gitGraber. You Can Use All Of These Tools Via The Bot Using Only Discord Commands. Also, Discord Recon Allows You To Automate Subdomains Collection Process. It's Using Assetfinder, Findomain And Subfinder To Collect Subdomains, Sort Them Using Python Function. Then Filter Them Using httpx. And The Output Is Getting Saved On The Server. Anytime You Want To Use This Data For Nuclei Scans Or Any Other Scans That Wiil Be Added Soon. You Can Just Call The Scan Function And It Will Use The Subdomains That Got Saved Before. 
