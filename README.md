@@ -1,3 +1,5 @@
+<p align="center"><img width="100" height="100" src="https://raw.githubusercontent.com/badges/shields/master/logo/discord.svg"></p>
+
 <h1 align="center">Discord-Recon</h1>
 <p align="center">Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.</p>
 
