@@ -1,7 +1,7 @@
 <p align="center"><img width="100" height="100" src="/images/logo.svg"></p>
 
 <h1 align="center">Discord-Recon</h1>
-<p align="center">Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord.</p>
+<p align="center">Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord Server.</p>
 
 <p align="center">
 <a href="https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"> </a>
