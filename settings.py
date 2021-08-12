@@ -1,12 +1,18 @@
+from os import path
+
+BASE_PATH = path.abspath(path.join(__file__, "../"))
 DISCORD_TOKEN = ""
+SERVER_NAME = ""
+DEFAULT_DISCORD_WEBHOOK = ""
 USER = ""
+ADMIN_ROLE = ""
 RECON_PATH = ""
-ADMINS = ['']
 PYTHON_COMPILE = False
-DEBUG = False
-COMMANDS_PREFIX = "."
-ADMIN_CHANNEL = 
+DEBUG = True
+ADMIN_CHANNEL = 812515205082906644
 DISABLE_NUCLEI_INFO = True
+NUCLEI_WEBHOOK = ""
+COMMANDS_PREFIX = "."
 
 TOOLS = {
     "dirsearch":"tools/dirsearch/",
@@ -17,4 +23,4 @@ TOOLS = {
     "smuggler":"tools/smuggler/"
 }
 
-RCE = [';' , '`' , '$' , '(' , ')' , '|' , '&', '\n', '<', '>']
+RCE = [';' , '`' , '$' , '(' , ')' , '|' , '&' , '%', '\n', '<', '>']
