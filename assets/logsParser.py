@@ -1,10 +1,11 @@
 from os import path
+from settings import BASE_PATH
 
 # Define globals
 logsItems = {}
 
 def logsExists():
-    return path.exists('data/logs/logs.easy')
+    return path.exists(f'{BASE_PATH}/data/logs/logs.easy')
 
 def logsParser():
     global logsItems
@@ -12,7 +13,7 @@ def logsParser():
     if not logsExists():
         open('data/logs/logs.easy' , 'a').close()
 
-    logsContent = open('data/logs/logs.easy', 'r').readlines()
+    logsContent = open(f'{BASE_PATH}/data/logs/logs.easy', 'r').readlines()
     if len(logsContent) == 0:
         return False
     else:
@@ -28,6 +29,6 @@ def logsParser():
         return logsItems
 
 def logsWriter(Target , fileName):
-    with open('data/logs/logs.easy' , 'a') as logsFile:
+    with open(f'{BASE_PATH}/data/logs/logs.easy' , 'a') as logsFile:
         logsFile.write(f"{Target}={fileName}\n")
         logsFile.close()
