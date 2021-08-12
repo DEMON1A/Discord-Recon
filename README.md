@@ -45,13 +45,17 @@ sudo bash ./bash/installer.sh
 - `DEBUG` - Debug Mode
 - `COMMANDS_PREFIX` - The Perfix Of All Bot Commands
 - `ADMIN_CHANNEL` - Admin Channel ID For Important Messages.
-- `DISABLE_NUCLEI_INFO = False` - Disable nuclei from sending INF bugs
+- `DISABLE_NUCLEI_INFO` - Disable nuclei from sending INF bugs
 - `NUCLEI_WEBHOOK` - The webhook nuclei will be using to post bugs
+- `DEFAULT_DISCORD_WEBHOOK` - The default discord-webhook Discord-Recon gonna send results with
+- `SERVER_NAME` - The server name that gonna be used with messages
 - `TOOLS` - Paths For The Tools Names Inside Your System
 - `RCE` - Command Injection Protection. Don't Ever Remove One Of It's Items.
 
 ## Commands: :thought_balloon:
 - `.exec` - Execute Shell Commands On The Server.
+- `.sudo` - Give discord roles to users
+- `.unsudo` - Remove discord roles from users
 - `.compile` - Execute a Python3 Code On The Server
 - `.shutdown` - Shutdown The Bot
 - `.restart` - Restart The Bot.
