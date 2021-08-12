@@ -5,11 +5,13 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 0.0.5   | :white_check_mark: |
 | 0.0.4   | :white_check_mark: |
-| 0.0.3   | :white_check_mark: |
-| 0.0.2   | :x: |
+| 0.0.3   | :x:                |
+| 0.0.2   | :x:                |
 | 0.0.1   | :x:                |
 
 ## Reporting a Vulnerability
+- If you think you have found a security issue on discord-recon. you can contact me via email about it: mdaif1332@gmail.com. or you can submit the issue on huntr platform, Don't submit security issues on public issue tracker like github again.
 
-If you think you have found a security issue on discord-recon. you can contact me via email about it: mdaif1332@gmail.com. or you can submit an issue with it and we will fix this issue ASAP.
+- After reporting any valid security issue, I will be creating an advisory for it and request a CVE via github, Make sure to accept the credits for the issue when you see an email.
