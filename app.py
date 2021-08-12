@@ -81,22 +81,13 @@ async def restart(ctx):
 @Client.command()
 @commands.has_role(ADMIN_ROLE)
 async def compile(ctx, *, argument):
-    if PYTHON_COMPILE:
-        Message = pyExecute.detectContent(argument)
+    Message = pyExecute.detectContent(argument)
 
-        if Message != '':
-            await ctx.send("**Compiled Python Code Output:**")
-            await ctx.send(Message)
-        else:
-            await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
+    if Message != '':
+        await ctx.send("**Compiled Python Code Output:**")
+        await ctx.send(Message)
     else:
-        Message = pyExecute.detectContent(argument)
-
-        if Message != '':
-            await ctx.send("**Compiled Python Code Output:**")
-            await ctx.send(Message)
-        else:
-            await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
+        await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
 
 @Client.command()
 async def nslookup(ctx , *, argument):
