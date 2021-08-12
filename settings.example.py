@@ -7,7 +7,6 @@ DEFAULT_DISCORD_WEBHOOK = "https://discord.com/api/webhooks/xyz"
 USER = "/home/username"
 ADMIN_ROLE = "Admins"
 RECON_PATH = "/home/user/recon"
-PYTHON_COMPILE = False
 DEBUG = False
 ADMIN_CHANNEL = 812515205082906641
 DISABLE_NUCLEI_INFO = True
