@@ -34,7 +34,7 @@ sudo bash ./bash/installer.sh
 6. Edit Gitgraber Config and Add Your Github Token And Discord Webhook
 7. Run `app.py` With The Command: `python3 app.py` And Feel Free To Open an Issue If Something Isn't Working
 
-**NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm your machine.**
+**NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm your machine.** <br> <br>
 **NOTE: Discord-Recon has been tested only on linux, and most of the commands on the code are based on bash, it's not possible to run discord-recon on windows OS**
 
 ## Setup Variables :star:
