@@ -4,10 +4,10 @@
 <p align="center">Discord Recon Server Allows You To Do Your Reconnaissance Process From Your Discord Server.</p>
 
 <p align="center">
-<a href="https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"> </a>
-<a href="https://huntr.dev/bounties/disclose"> <img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg" alt="Huntr"> </a>
-<img src="https://tokei.rs/b1/github/DEMON1A/Discord-Recon">
-<a href="https://discord.gg/RBkQk86x2g"> <img src="https://img.shields.io/discord/795756379700461589.svg?logo=discord"> </a>
+<a href="https://twitter.com/intent/tweet?text=Check%20out%20Discord-Recon%20on%20github!&url=https://github.com/DEMON1A/Discord-Recon&via=DemoniaSlash&hashtags=recon,bugbounty"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"> <!-- Twitter retweet button --> </a>
+<a href="https://huntr.dev/bounties/disclose"> <img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg" alt="Huntr"> <!-- Huntr badge --> </a>
+<img src="https://tokei.rs/b1/github/DEMON1A/Discord-Recon"> <!-- Total lines of code -->
+<a href="https://discord.gg/RBkQk86x2g"> <img src="https://img.shields.io/discord/795756379700461589.svg?logo=discord"> <!-- Discord chat widget --> </a>
 </p>
 
 
