@@ -79,7 +79,7 @@ sudo bash ./bash/installer.sh
 - `.subdomains` - Collect Subdomains
 - `.show` - Show Targets We Have On The Database
 - `.count` - Show Subdomains/Hosts Count In The DataBase.
-- `.userscommands` - Show the users commands from the logs.
+- `.history` - Show the users commands from the logs.
 - `.nuclei` - Perform Nuclei Scan On Collected Subdomains
 - `.subjack` - Perform Subjack Scan On Collected Subdomains
 - `.subjs` - Run Subjs On Collected Subdomains
