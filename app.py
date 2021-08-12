@@ -27,52 +27,59 @@ Client = commands.Bot(command_prefix=COMMANDS_PREFIX, intents=discordIntents)
 
 # Define globals
 logsItems = logsParser.logsParser()
-if not logsItems or len(logsItems) == 0: logsItems = {}
+if not logsItems or len(logsItems) == 0:
+    logsItems = {}
 
 resolvedItems = resolvedParser.resolvedParser()
-if not resolvedItems or len(resolvedItems) == 0: resolvedItems = {}
+if not resolvedItems or len(resolvedItems) == 0:
+    resolvedItems = {}
 
-# Helpful commands 
+# Bot commands 
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def exec(ctx , *, argument):
-    for ADMIN in ADMINS:
-        if str(ctx.message.author) == ADMIN:
-            try:
-                Process = subprocess.Popen(f'{argument}' , shell=True , executable="/bin/bash" , stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                Results = Process.communicate()[0].decode('UTF-8')
-                if len(Results) > 2000:
-                    RandomStr = randomStrings.Genrate()
+    try:
+        Process = subprocess.Popen(argument, shell=True, executable="/bin/bash", stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        Results = Process.communicate()[0].decode('UTF-8')
+        if len(Results) > 2000:
+            RandomStr = randomStrings.Genrate()
 
-                    with open(f'messages/{RandomStr}' , 'w') as Message:
-                        Message.write(Results); Message.close()
-                        await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
-                else:
-                    if Results != '': await ctx.send(f'```{Results}```')
-                    else: await ctx.send(f"**The Command You Performed Didn't Return an Output.**")
-            except Exception as e:
-                print("Exception Happened!")
-                if DEBUG == True: await ctx.send(f'Python Error: **{str(e)}**')
-                else: await ctx.send("**Your Command Returned an Error.**")
-            return None
-        else: pass
-    await ctx.send(f"**You're Not Authorized To Make Commands To The Server.**")
+            with open(f'messages/{RandomStr}' , 'w') as Message:
+                Message.write(Results); Message.close()
+                await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
+        else:
+            if Results != '': await ctx.send(f'```{Results}```')
+            else: await ctx.send(f"**The Command You Performed Didn't Return an Output.**")
+    except Exception as e:
+        await ctx.send("**Your Command Returned an Error.**")
 
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
+async def sudo(ctx, member: discord.Member, role: discord.Role):
+    await member.add_roles(role)
+    await ctx.send(f"> Successfully added **{role.name}** to **{member.name}**")
+
+@Client.command()
+@commands.has_role(ADMIN_ROLE)
+async def unsudo(ctx, member: discord.Member, role: discord.Role):
+    await member.remove_roles(role)
+    await ctx.send(f"> Successfully removed **{role.name}** from **{member.name}**")
+
+@Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def shutdown(ctx):
-    for ADMIN in ADMINS:
-        if str(ctx.message.author) == ADMIN:
-            await ctx.send("**Stoping the bot based on admin command**")
-            await ctx.bot.logout()
-            return
-    await ctx.send("**Only admins allowed to shutdown the bot**")
+    await ctx.send("**Stoping the bot based on admin command**")
+    await ctx.bot.logout()
 
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def restart(ctx):
     await ctx.send(f"**Restarting {SERVER_NAME}, It might take up to one minute**")
     python = sys.executable
     execl(python, python, * sys.argv)
 
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def compile(ctx, *, argument):
     if PYTHON_COMPILE:
         Message = pyExecute.detectContent(argument)
@@ -83,34 +90,21 @@ async def compile(ctx, *, argument):
         else:
             await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
     else:
-        for ADMIN in ADMINS:
-            if str(ctx.message.author) == ADMIN:
-                Message = pyExecute.detectContent(argument)
+        Message = pyExecute.detectContent(argument)
 
-                if Message != '':
-                    await ctx.send("**Compiled Python Code Output:**")
-                    await ctx.send(Message)
-                else:
-                    await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
-                return ''
-
-        await ctx.send("**You're not allowed to execute python codes here**")
+        if Message != '':
+            await ctx.send("**Compiled Python Code Output:**")
+            await ctx.send(Message)
+        else:
+            await ctx.send("**The Python Code You Compiled Didn't Return an Output**")
 
 @Client.command()
 async def nslookup(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
     Results = subprocess.check_output(['nslookup', f'{argument}'] , shell=False).decode('UTF-8')
     await ctx.send(f'{Results}')
 
 @Client.command()
 async def whois(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
     Output = subprocess.check_output(['whois', f'{argument}'], shell=False).decode('UTF-8')
 
     if len(Output) > 2000:
@@ -129,10 +123,6 @@ async def whois(ctx , *, argument):
 
 @Client.command()
 async def dig(ctx , * , argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
     Output = subprocess.check_output(['dig', f'{argument}'] , shell=False).decode('UTF-8')
     
     if len(Output) > 2000:
@@ -177,11 +167,7 @@ async def statuscode(ctx, *, argument):
 
 @Client.command()
 async def prips(ctx, *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
-    Output = subprocess.check_output([f'prips {argument}'] , shell=True)
+    Output = subprocess.check_output(['prips', f'{argument}'] , shell=False)
     Output = Output.decode('UTF-8')
 
     if len(Output) > 2000:
@@ -201,27 +187,17 @@ async def prips(ctx, *, argument):
 # Tools commands
 @Client.command()
 async def dirsearch(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-    
-    Path = TOOLS['dirsearch']; MainPath = getcwd(); chdir(Path)
+    argument = CommandInjection.sanitizeInput(argument)
+    fileName = randomStrings.Genrate()
+
+    dirsearchPath = TOOLS['dirsearch']
+    chdir(dirsearchPath)
+
     await ctx.send(f"**Running Your Dirsearch Scan, We Will Send The Results When It's Done**")
-    Process = subprocess.Popen(f'python3 dirsearch.py -u {argument} -e php,html,csv,sql,db,conf,cgi,log,aspx,ini -b' , shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    Output = Process.communicate()[0].decode('UTF-8')
-    Output = removeColors.Remove(Output); chdir(MainPath)
-
-    if len(Output) > 2000:
-        RandomStr = randomStrings.Genrate()
-
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output); Message.close()
-            await ctx.send("Results: ", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
-    else:
-        await ctx.send(f'Results:')
-        await ctx.send(f'```{Output}```')
-        await ctx.send(f"\n**- {ctx.message.author}**")
+    _ = subprocess.Popen(f'python3 dirsearch.py -u {argument} -e "*" -o {BASE_PATH}/messages/{fileName} && python3 {BASE_PATH}/notify.py --mode 2 -m "Dirsearch results:" -f "- {ctx.message.author}" --file {fileName}', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+    
+    chdir(BASE_PATH)
+    await ctx.send("**Dirsearch just started, The results gonna be sent when the process is done**")
 
 @Client.command()
 async def arjun(ctx , *, argument):
@@ -477,37 +453,8 @@ async def trufflehog(ctx, *, argument):
         return
 
     await ctx.send(f"**Scanning {argument} for possible data leaks using truffleHog**")
-    Process = subprocess.Popen(f"trufflehog --regex --entropy=False {argument}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    Output = Process.communicate()[0].decode('UTF-8')
-    Output = removeColors.Remove(Text=Output)
-
-    if len(Output) > 2000:
-        RandomStr = randomStrings.Genrate()
-
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(Output)
-            Message.close()
-
-            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
-            if not messageSize:
-                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                return
-            elif messageSize > 8:
-                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
-                if not URL_:
-                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                    return
-                else:
-                    await ctx.send(f"truffleHog Results: {URL_}")
-            else:
-                await ctx.send("**truffleHog Results:**", file=discord.File(f"messages/{RandomStr}"))
-                await ctx.send(f"\n**- {ctx.message.author}**")
-    elif len(Output) == 0:
-        await ctx.send(f"**truffleHog couldn't find leaks on: {argument}**")
-    else:
-        await ctx.send(f'**truggleHog Results:**')
-        await ctx.send(f'```{Output}```')
-        await ctx.send(f"\n**- {ctx.message.author}**")
+    _ = subprocess.Popen(f"trufflehog --regex --entropy=False {argument} | python3 notify.py --mode 1 -m 'truffleHog Results:' -f '- {ctx.message.author}'", shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
+    await ctx.send(f"**pyNotify gonna send the results when it's done**")
 
 @Client.command()
 async def gitls(ctx, *, argument):
@@ -681,10 +628,6 @@ async def subdomains(ctx ,* , argument):
 async def info(ctx , *, argument):
     global logsItems
 
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
     try:
         subdomainsFile = logsItems[argument]
     except Exception:
@@ -728,10 +671,6 @@ async def nuclei(ctx, *, argument):
     global logsItems
     nucleiTemplates = TOOLS['nuclei-templates']
 
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
     try:
         subdomainsFile = logsItems[argument]
     except Exception:
@@ -740,10 +679,10 @@ async def nuclei(ctx, *, argument):
 
     await ctx.send(f"**Scanning {argument} For Possible Issues Using Nuclei.**")
     if DISABLE_NUCLEI_INFO:
-        _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | grep -v 'info.*\]' | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+        _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | grep -v 'info.*\]' | python3 notify.py --mode 0 --discord-webhook {NUCLEI_WEBHOOK}",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
     else:
-         _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | notify",shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
-    await ctx.send("**Results gonna be sent to notify webhook channel**")
+         _ = subprocess.Popen(f"nuclei -l data/subdomains/{subdomainsFile} -t {nucleiTemplates} -silent | python3 notify.py --mode 0 --discord-webhook {NUCLEI_WEBHOOK}", shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    await ctx.send("**Results gonna be sent to nuclei webhook channel**")
 
 @Client.command()
 async def subjack(ctx , *, argument):
@@ -761,37 +700,9 @@ async def subjack(ctx , *, argument):
         return
 
     await ctx.send(f"**Scanning {argument} For Possible Subdomains Takeover Issues Using Subjack**")
-    Process = subprocess.Popen(f"subjack -w data/hosts/{resolvedFile} -t 100 -timeout 30 -o data/subjack/{argument}-{fileStr}.subjack -ssl",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    subjackResults = Process.communicate()[0].decode('UTF-8')
-    subjackResults = removeColors.Remove(Text=subjackResults)
+    _ = subprocess.Popen(f"subjack -w data/hosts/{resolvedFile} -t 100 -timeout 30 -o data/subjack/{argument}-{fileStr}.subjack -ssl | python3 notify.py --mode 1 -m 'Subjack results:' -f '- {ctx.message.author}'", shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
 
-    if subjackResults == '':
-        await ctx.send(f"**Subjack Couldn't Find Issue On {argument}**")
-    elif len(subjackResults) > 2000:
-        RandomStr = randomStrings.Genrate()
-
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(subjackResults)
-            Message.close()
-
-            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
-            if not messageSize:
-                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                return
-            elif messageSize > 8:
-                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
-                if not URL_:
-                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                    return
-                else:
-                    await ctx.send(f"Subjack Results: {URL_}")
-            else:
-                await ctx.send("**Subjack Results:**", file=discord.File(f"messages/{RandomStr}"))
-                await ctx.send(f"\n**- {ctx.message.author}**")
-    else:
-        await ctx.send(f"**Subjack Results For {argument}:**")
-        await ctx.send(f'```{subjackResults}```')
-        await ctx.send(f"\n**- {ctx.message.author}**")
+    await ctx.send(f"**Results gonna be sent to the results channel soon**")
 
 @Client.command()
 async def subjs(ctx , *, argument):
@@ -808,37 +719,8 @@ async def subjs(ctx , *, argument):
         return
 
     await ctx.send(f"**Extracting JS Files From {argument} Using Subjs**")
-    Process = subprocess.Popen(f"cat data/subdomains/{subdomainsFile} | subjs",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    subjsResults = Process.communicate()[0].decode('UTF-8')
-
-    if subjsResults == '':
-        await ctx.send(f"**Subjs Couldn't Find Issue On {argument}**")
-    elif len(subjsResults) > 2000:
-        RandomStr = randomStrings.Genrate()
-
-        with open(f'messages/{RandomStr}' , 'w') as Message:
-            Message.write(subjsResults)
-            Message.close()
-
-            messageSize = fileSize.getSize(filePath=f'messages/{RandomStr}')
-
-            if not messageSize:
-                await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                return
-            elif messageSize > 8:
-                URL_ = filesUploader.uploadFiles(filePath=f'messages/{RandomStr}')
-                if not URL_:
-                    await ctx.send("**There's Something Wrong On The Bot While Reading a File That's Already Stored. Check It.**")
-                    return
-                else:
-                    await ctx.send(f"Subjs Results: {URL_}")
-            else:
-                await ctx.send("**Subjs Results:**", file=discord.File(f"messages/{RandomStr}"))
-                await ctx.send(f"\n**- {ctx.message.author}**")
-    else:
-        await ctx.send(f"**Subjs Results For {argument}:**")
-        await ctx.send(f'```{subjsResults}```')
-        await ctx.send(f"\n**- {ctx.message.author}**")
+    _ = subprocess.Popen(f"cat data/subdomains/{subdomainsFile} | subjs | python3 notify.py --mode 1 -m 'Subjs results:' -f '- {ctx.message.author}'", shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    await ctx.send(f"**Results gonna be sent soon on the results channel**")
 
 @Client.command()
 async def smuggler(ctx, *, argument):
@@ -894,6 +776,7 @@ async def smuggler(ctx, *, argument):
 
 # Showing Current Recon Data
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def show(ctx):
     global logsItems
 
@@ -901,10 +784,11 @@ async def show(ctx):
     for site,_ in logsItems.items():
         targetsList.append(site)
 
-    targetsMessage = ', '.join(targetsList)
-    await ctx.send(f"**We Have Subdomains For: {targetsMessage}**")
+    targetsMessage = '\n'.join(targetsList)
+    await ctx.send(f"**Available records: \n\n{targetsMessage}**")
 
 @Client.command()
+@commands.has_role(ADMIN_ROLE)
 async def count(ctx , *, argument):
     global logsItems , resolvedItems
 
@@ -912,8 +796,6 @@ async def count(ctx , *, argument):
         resolvedFile = resolvedItems[argument]
         resolvedContent = open(f'data/hosts/{resolvedFile}' , 'r').readlines()
         resolvedLength = len(resolvedContent)
-
-        await ctx.send(f"**There's {str(resolvedLength)} Live Hosts For {argument}**")
     except Exception:
         await ctx.send("**There's no subdomains has been collected for this target. please use ** `.subdomains [TARGET]` ** Then try again.**")
         return
@@ -922,37 +804,38 @@ async def count(ctx , *, argument):
         subdomainsFile = logsItems[argument]
         subdomainsContent = open(f'data/subdomains/{subdomainsFile}' , 'r').readlines()
         subdomainsLength = len(subdomainsContent)
-
-        await ctx.send(f"**There's {str(subdomainsLength)} Valid Subdomains For {argument}**")
     except Exception:
         await ctx.send("**There's no subdomains has been collected for this target. please use** `.subdomains [TARGET]` **Then try again.**")
         return
 
+    await ctx.send(f"**{argument}:\n\t\tResolved hosts: {str(resolvedLength)}\n\t\tLive subdomains: {str(subdomainsLength)}**")
+
 @Client.command()
-async def userscommands(ctx):
-    for ADMIN in ADMINS:
-        if str(ctx.message.author) == ADMIN:
-            commandsContent = open('data/logs/commands.easy', 'r').read()
-            await ctx.send(f"**{SERVER_NAME} Gonna send you the results in DM**")
+@commands.has_role(ADMIN_ROLE)
+async def history(ctx):
+    commandsContent = open('data/logs/commands.easy', 'r').read()
+    await ctx.send(f"**{SERVER_NAME} Gonna send you the results in DM**")
 
-            if len(commandsContent) < 2000:
-                await ctx.message.author.send('**Users Commands:**')
-                await ctx.message.author.send(f'```{commandsContent}```')
-            else:
-                RandomStr = randomStrings.Genrate()
-                with open(f'messages/{RandomStr}' , 'w') as Message:
-                    Message.write(commandsContent)
-                    Message.close()
+    if len(commandsContent) < 2000:
+        await ctx.message.author.send('**Users Commands:**')
+        await ctx.message.author.send(f'```{commandsContent}```')
+    else:
+        RandomStr = randomStrings.Genrate()
+        with open(f'messages/{RandomStr}' , 'w') as Message:
+            Message.write(commandsContent)
+            Message.close()
 
-                await ctx.message.author.send("**Users Commands:**", file=discord.File(f"messages/{RandomStr}"))
-            return
-    await ctx.send("**Only admins can view the users commands on the server.**")
+        await ctx.message.author.send("**Users Commands:**", file=discord.File(f"messages/{RandomStr}"))
 
 # Main Event With Admin Channel Logger.
 @Client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send('**Invalid command, please type `.help` to see the list of commands and tools.**')
+        await ctx.send("**Invalid command, please type `.help` to see the list of commands and tools.**")
+    elif isinstance(error, (commands.MissingRole, commands.MissingAnyRole)):
+        await ctx.send("**You don't have permession to use this command, role is required**")
+    else:
+        await ctx.send(f"**Unknown error: {error}**")
 
 @Client.event
 async def on_command(ctx):
