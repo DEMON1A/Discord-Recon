@@ -22,7 +22,7 @@ git clone https://github.com/DEMON1A/Discord-Recon/
 cd Discord-Recon/
 ```
 
-2. Make Sure You Have Both `python3` and `golang` On Your System.
+2. Make Sure You Have Both `python3`, `golang` and `pip3` On Your System.
 3. Run Discord-Recon Tools Installer From The Main Folder And Make Sure There's No Errors Using:
 
 ```
@@ -35,15 +35,18 @@ sudo bash ./bash/installer.sh
 7. Run `app.py` With The Command: `python3 app.py` And Feel Free To Open an Issue If Something Isn't Working
 
 **NOTE: Running discord-recon on a VPS will be much cooler, since it uses a lot of internet and memory based on your usage. and you don't really want to harm your machine.**
+**NOTE: Discord-Recon has been tested only on linux, and most of the commands on the code are based on bash, it's not possible to run discord-recon on windows OS**
 
 ## Setup Variables :star:
 - `DISCORD_TOKEN` - Your Discord Bot Token
 - `USER` - Path To Your OS User
 - `RECON_PATH` - Path To Your Recon Data
-- `ADMINS` - Admins That Can Run OS Commands On The Server With `exec`
+- `ADMIN_ROLE` - The admin role name on your server
 - `DEBUG` - Debug Mode
 - `COMMANDS_PREFIX` - The Perfix Of All Bot Commands
 - `ADMIN_CHANNEL` - Admin Channel ID For Important Messages.
+- `DISABLE_NUCLEI_INFO = False` - Disable nuclei from sending INF bugs
+- `NUCLEI_WEBHOOK` - The webhook nuclei will be using to post bugs
 - `TOOLS` - Paths For The Tools Names Inside Your System
 - `RCE` - Command Injection Protection. Don't Ever Remove One Of It's Items.
 
