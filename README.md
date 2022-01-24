@@ -12,7 +12,7 @@
 
 
 ## What's discord recon? :confused:
-- discordrecon is a cool discord bot working on your server to make it easy to do recon from your discord server. the bot has been linked with many tools like: nuclei, findomain, assetfinder, subfinder, arjun, paramspider, waybackurls, dirsearch and gitgraber. you can use all of these tools via the bot using only discord commands. also, discord recon allows you to automate subdomains collection process. it's using assetfinder, findomain and subfinder to collect subdomains, sort them using python function. then filter them using httpx. and the output is getting saved on the server. anytime you want to use this data for nuclei scans or any other scans that wiil be added soon. you can just call the scan function and it will use the subdomains that got saved before. 
+- DiscordRecon is a cool discord bot working on your server to make it easy to do recon from your discord server. the bot has been linked with many tools like: nuclei, findomain, assetfinder, subfinder, arjun, paramspider, waybackurls, dirsearch and gitgraber. you can use all of these tools via the bot using only discord commands. also, discord recon allows you to automate subdomains collection process. it's using assetfinder, findomain and subfinder to collect subdomains, sort them using python function. then filter them using httpx. and the output is getting saved on the server. anytime you want to use this data for nuclei scans or any other scans that wiil be added soon. you can just call the scan function and it will use the subdomains that got saved before. 
 
 ## Setup discord-recon on your server :relieved:
 1. download discord-recon source code using
@@ -38,19 +38,18 @@ sudo bash ./bash/installer.sh
 **note: discord-recon has been tested only on linux, and most of the commands on the code are based on bash, it's not possible to run discord-recon on windows os**
 
 ## Setup variables :star:
-- `discord_token` - your discord bot token
-- `user` - path to your os user
-- `recon_path` - path to your recon data
-- `admin_role` - the admin role name on your server
-- `debug` - debug mode
-- `commands_prefix` - the perfix of all bot commands
-- `admin_channel` - admin channel id for important messages.
-- `disable_nuclei_info` - disable nuclei from sending inf bugs
-- `nuclei_webhook` - the webhook nuclei will be using to post bugs
-- `default_discord_webhook` - the default discord-webhook discord-recon gonna send results with
-- `server_name` - the server name that gonna be used with messages
-- `tools` - paths for the tools names inside your system
-- `rce` - command injection protection. don't ever remove one of it's items.
+- `DISCORD_TOKEN` - your discord bot token
+- `USER` - path to your os user
+- `RECON_PATH` - path to your recon data
+- `ADMIN_ROLE` - the admin role name on your server
+- `DEBUG` - debug mode
+- `COMMANDS_PREFIX` - the perfix of all bot commands
+- `ADMIN_CHANNEL` - admin channel id for important messages.
+- `DISABLE_NUCLEI_INFO - disable nuclei from sending inf bugs
+- `NUCLEI_WEBHOOK` - the webhook nuclei will be using to post bugs
+- `DEFAULT_DISCORD_WEBHOOK` - the default discord-webhook discord-recon gonna send results with
+- `TOOLS` - paths for the tools names inside your system
+- `RCE` - command injection protection. don't ever remove one of it's items.
 
 ## Commands: :thought_balloon:
 - `.exec` - execute shell commands on the server.
