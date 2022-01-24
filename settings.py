@@ -2,7 +2,6 @@ from os import path
 
 BASE_PATH = path.abspath(path.join(__file__, "../"))
 DISCORD_TOKEN = ""
-SERVER_NAME = ""
 DEFAULT_DISCORD_WEBHOOK = ""
 USER = ""
 ADMIN_ROLE = ""
