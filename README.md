@@ -45,7 +45,7 @@ sudo bash ./bash/installer.sh
 - `DEBUG` - debug mode
 - `COMMANDS_PREFIX` - the perfix of all bot commands
 - `ADMIN_CHANNEL` - admin channel id for important messages.
-- `DISABLE_NUCLEI_INFO - disable nuclei from sending inf bugs
+- `DISABLE_NUCLEI_INFO` - disable nuclei from sending inf bugs
 - `NUCLEI_WEBHOOK` - the webhook nuclei will be using to post bugs
 - `DEFAULT_DISCORD_WEBHOOK` - the default discord-webhook discord-recon gonna send results with
 - `TOOLS` - paths for the tools names inside your system
