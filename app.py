@@ -74,7 +74,7 @@ async def shutdown(ctx):
 @Client.command()
 @commands.has_role(ADMIN_ROLE)
 async def restart(ctx):
-    await ctx.send(f"**Restarting {SERVER_NAME}, It might take up to one minute**")
+    await ctx.send(f"**Restarting DisordRecon, It might take up to one minute**")
     python = sys.executable
     execl(python, python, * sys.argv)
 
@@ -805,7 +805,7 @@ async def count(ctx , *, argument):
 @commands.has_role(ADMIN_ROLE)
 async def history(ctx):
     commandsContent = open('data/logs/commands.easy', 'r').read()
-    await ctx.send(f"**{SERVER_NAME} Gonna send you the results in DM**")
+    await ctx.send(f"**DiscordRecon gonna send you the results in DM**")
 
     if len(commandsContent) < 2000:
         await ctx.message.author.send('**Users Commands:**')
@@ -841,7 +841,7 @@ async def on_command(ctx):
 
 @Client.event
 async def on_member_join(member):
-    welcomeMessage = f"**Welcome to {SERVER_NAME}\n\nYou can do your recon from the server to get fast results\notherwise, you can make your recon from the DMs to keep your hunting process private\n\nand if you find discord-recon helpful make sure to star it on github: https://github.com/DEMON1A/Discord-Recon**"
+    welcomeMessage = f"**Welcome to DiscordRecon, a discord bot created to help bug bounty hunters with thier reconnaissance process from discord\n\nIf you think this bot has been helpful with your bug bounty hunting process make sure to give it a start on github https://github.com/DEMON1A/Discord-Recon**"
     await member.send(welcomeMessage)
 
 @Client.event
@@ -852,7 +852,7 @@ async def on_member_remove(member):
 @Client.event
 async def on_ready():
     Dates = datetime.now()
-    Message = f"**ReconServer Started To Work at {Dates.year}-{Dates.month}-{Dates.day}**"
+    Message = f"**ReconServer started to work at {Dates.year}-{Dates.month}-{Dates.day}**"
     adminChannel = Client.get_channel(ADMIN_CHANNEL)
     await adminChannel.send(Message)
 
