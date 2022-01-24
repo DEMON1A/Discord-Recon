@@ -2,7 +2,6 @@ from os import path
 
 BASE_PATH = path.abspath(path.join(__file__, "../"))
 DISCORD_TOKEN = "1234567890ABCD"
-SERVER_NAME = "My-Server"
 DEFAULT_DISCORD_WEBHOOK = "https://discord.com/api/webhooks/xyz"
 USER = "/home/username"
 ADMIN_ROLE = "Admins"
