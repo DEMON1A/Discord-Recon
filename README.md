@@ -105,7 +105,7 @@ sudo bash ./bash/installer.sh
 # Collaborators 💝
 - [@0xwise64](https://github.com/0xwise64) - reported security issues on discord-recon, helped with the development process
 - [@ry0tak](https://github.com/ry0tak) - reported security issues on discord-recon
-- [@securityhook](https://github.com/securityhook) - reported security issues on discord-recon
+- [@omarbdrn](https://github.com/omarbdrn) - reported security issues on discord-recon
 
 # Credits :sparkles:
 - [assetfinder](https://github.com/tomnomnom/assetfinder) - [@tomnomnom](https://github.com/tomnomnom)
