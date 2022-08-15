@@ -22,37 +22,37 @@ echo -e "${RED}Installing httpx, assetfinder, nuclei, subjack, subjs${ENDCOLOR}"
 echo 
 
 echo -e "${GREEN}Installing httpx${ENDCOLOR}"
-GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx
+go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 echo -e "${GREEN}Httpx installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing assetfinder${ENDCOLOR}"
-go get -u github.com/tomnomnom/assetfinder
+go install -v github.com/tomnomnom/assetfinder@latest
 echo -e "${GREEN}Assetfinder installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing nuclei${ENDCOLOR}"
-GO111MODULE=on go get -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 echo -e "${GREEN}Nuclei installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing subjack${ENDCOLOR}"
-go get -u github.com/haccer/subjack
+go install github.com/haccer/subjack@latest
 echo -e "${GREEN}Subjack installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing subjs${ENDCOLOR}"
-GO111MODULE=on go get -u -v github.com/lc/subjs
+go install -v github.com/lc/subjs@latest
 echo -e "${GREEN}Subjs installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing notify${ENDCOLOR}"
-GO111MODULE=on go get -v github.com/projectdiscovery/notify/cmd/notify
+go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 echo -e "${GREEN}Notify installed${ENDCOLOR}"
 echo
 
 echo -e "${GREEN}Installing gitls${ENDCOLOR}"
-GO111MODULE=on go get -v github.com/hahwul/gitls
+go install -v github.com/hahwul/gitls@latest
 echo -e "${GREEN}Gitls installed${ENDCOLOR}"
 echo 
 
@@ -64,7 +64,7 @@ echo -e "${RED}Creating tools folder${ENDCOLOR}"
 mkdir tools/
 
 echo -e "${GREEN}Installing findomain${ENDCOLOR}"
-wget "https://github.com/Findomain/Findomain/releases/download/4.1.1/findomain-linux"
+wget "https://github.com/findomain/findomain/releases/download/8.1.1/findomain-linux-i386" -O findomain-linux
 mv findomain-linux tools/
 chmod +x tools/findomain-linux
 echo -e "${GREEN}Findomain has been installed${ENDCOLOR}"
