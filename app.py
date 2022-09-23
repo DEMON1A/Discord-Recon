@@ -3,7 +3,7 @@ from discord.ext import commands
 from settings import *
 from datetime import datetime
 from urllib.parse import urlparse
-from os import path , getcwd , chdir, execl
+from os import path, getcwd, chdir, execl
 
 from assets import CommandInjection
 from assets import getIp
@@ -22,6 +22,7 @@ from assets import statusCode
 
 discordIntents = discord.Intents.default()
 discordIntents.members = True
+discordIntents.message_content = True
 
 Client = commands.Bot(command_prefix=COMMANDS_PREFIX, intents=discordIntents)
 
@@ -841,7 +842,14 @@ async def on_command(ctx):
 
 @Client.event
 async def on_member_join(member):
-    welcomeMessage = f"**Welcome to DiscordRecon, a discord bot created to help bug bounty hunters with thier reconnaissance process from discord\n\nIf you think this bot has been helpful with your bug bounty hunting process make sure to give it a start on github https://github.com/DEMON1A/Discord-Recon**"
+    welcomeMessage = f"""```
+    Welcome to Discord-Recon, a discord bot created to help bug bounty hunters with thier reconnaissance process from discord using simple commands
+    You can use the bot on the server, or if you wanna keep your recon data private you can always use the bot commands on the chat here 
+
+    In case you wanna host your own discord-recon server you can always use the source code at https://github.com/DEMON1A/Discord-Recon
+    And you can always support us at https://www.patreon.com/MohammedDief or https://paypal.me/MohammedDieff 
+    All of the donations goes for upgrading the server, and paying some of the VPS monthly payment
+    ```"""
     await member.send(welcomeMessage)
 
 @Client.event
@@ -851,9 +859,9 @@ async def on_member_remove(member):
 
 @Client.event
 async def on_ready():
+    adminChannel = Client.get_channel(ADMIN_CHANNEL)
     Dates = datetime.now()
     Message = f"**ReconServer started to work at {Dates.year}-{Dates.month}-{Dates.day}**"
-    adminChannel = Client.get_channel(ADMIN_CHANNEL)
     await adminChannel.send(Message)
 
 if __name__ == "__main__":
