@@ -70,7 +70,7 @@ async def unsudo(ctx, member: discord.Member, role: discord.Role):
 @commands.has_role(ADMIN_ROLE)
 async def shutdown(ctx):
     await ctx.send("**Stoping the bot based on admin command**")
-    await ctx.bot.logout()
+    await ctx.bot.close()
 
 @Client.command()
 @commands.has_role(ADMIN_ROLE)
@@ -193,10 +193,7 @@ async def dirsearch(ctx , *, argument):
 
 @Client.command()
 async def arjun(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     await ctx.send(f"**Running Your Arjun Scan, We Will Send The Results When It's Done**")
     await ctx.send(f"**Note: The Bot Won't Respond Until The Scan is Done. All Of Your Commands Now Will Be Executed After This Process is Done.")
     Process = subprocess.Popen(f'arjun -u {argument}', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -219,10 +216,7 @@ async def arjun(ctx , *, argument):
 
 @Client.command()
 async def gitgraber(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     Path = TOOLS['gitgraber']; MainPath = getcwd(); chdir(Path)
     await ctx.send(f"**Running Your GitGraber Scan, See gitGraber Channel For Possible Leaks**")
     _ = subprocess.Popen(f'python3 gitGraber.py -k wordlists/keywords.txt -q {argument} -d' , shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
@@ -230,10 +224,7 @@ async def gitgraber(ctx , *, argument):
 
 @Client.command()
 async def waybackurls(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     await ctx.send(f"**Collecting Waybackurls, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f"echo {argument} | waybackurls",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
@@ -265,10 +256,7 @@ async def waybackurls(ctx , *, argument):
 
 @Client.command()
 async def subfinder(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     await ctx.send(f"**Collecting Subdomains Using Subdinder, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f"subfinder -d {argument} -silent",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
@@ -301,10 +289,7 @@ async def subfinder(ctx , *, argument):
 
 @Client.command()
 async def assetfinder(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     await ctx.send("**Collecting Subdomains Using Assetfinder, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f"assetfinder --subs-only {argument}",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
@@ -337,10 +322,7 @@ async def assetfinder(ctx , *, argument):
 
 @Client.command()
 async def findomain(ctx , *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     findomainPath = TOOLS['findomain']
     await ctx.send("**Collecting Subdomains Using Findomain, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f"{findomainPath} --target {argument} --quiet",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
@@ -374,10 +356,7 @@ async def findomain(ctx , *, argument):
 
 @Client.command()
 async def paramspider(ctx, *, argument):
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     paramPath = TOOLS['paramspider']
     await ctx.send("**Collecting Parameters Using ParamSpider, We Will Send The Results When It's Done**")
     Process = subprocess.Popen(f"python3 {paramPath}/paramspider.py -d {argument}",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
@@ -422,10 +401,6 @@ async def paramspider(ctx, *, argument):
 
 @Client.command()
 async def trufflehog(ctx, *, argument):
-    if not CommandInjection.commandInjection(RCE=RCE, argument=argument):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return 
-
     # URL validation
     urlParsed = urlparse(argument)
     urlHost = urlParsed.netloc
@@ -445,15 +420,13 @@ async def trufflehog(ctx, *, argument):
         return
 
     await ctx.send(f"**Scanning {argument} for possible data leaks using truffleHog**")
+    argument = CommandInjection.sanitizeInput(argument)
     _ = subprocess.Popen(f"trufflehog --regex --entropy=False {argument} | python3 notify.py --mode 1 -m 'truffleHog Results:' -f '- {ctx.message.author}'", shell=True , stdin=None, stdout=None, stderr=None, close_fds=True)
     await ctx.send(f"**pyNotify gonna send the results when it's done**")
 
 @Client.command()
 async def gitls(ctx, *, argument):
-    if not CommandInjection.commandInjection(RCE=RCE, argument=argument):
-        await ctx.send("Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
-
+    argument = CommandInjection.sanitizeInput(argument)
     await ctx.send("**Collecting github projects using gitls**")
     Process = subprocess.Popen(f"echo https://github.com/{argument} | gitls", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     Output = Process.communicate()[0].decode('UTF-8')
@@ -528,10 +501,7 @@ async def recon(ctx , *, argument):
 @Client.command()
 async def subdomains(ctx ,* , argument):
     global logsItems, resolvedItems
-
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
+    argument = CommandInjection.sanitizeInput(argument)
 
     '''
     Subdomains collections gonna use three tools
@@ -679,10 +649,7 @@ async def nuclei(ctx, *, argument):
 @Client.command()
 async def subjack(ctx , *, argument):
     global resolvedItems
-
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
+    argument = CommandInjection.sanitizeInput(argument)
 
     try:
         resolvedFile = resolvedItems[argument]
@@ -699,10 +666,7 @@ async def subjack(ctx , *, argument):
 @Client.command()
 async def subjs(ctx , *, argument):
     global logsItems
-
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
+    argument = CommandInjection.sanitizeInput(argument)
 
     try:
         subdomainsFile = logsItems[argument]
@@ -717,10 +681,7 @@ async def subjs(ctx , *, argument):
 @Client.command()
 async def smuggler(ctx, *, argument):
     global logsItems
-
-    if not CommandInjection.commandInjection(argument=argument , RCE=RCE):
-        await ctx.send("**Your Command Contains Unallowed Chars. Don't Try To Use It Again.**")
-        return
+    argument = CommandInjection.sanitizeInput(argument)
 
     try:
         subdomainsFile = logsItems[argument]
@@ -777,6 +738,10 @@ async def show(ctx):
         targetsList.append(site)
 
     targetsMessage = '\n'.join(targetsList)
+    targetsMessage = f"""```
+    {targetsMessage}
+    ```
+    """
     await ctx.send(f"**Available records: \n\n{targetsMessage}**")
 
 @Client.command()
@@ -806,7 +771,7 @@ async def count(ctx , *, argument):
 @commands.has_role(ADMIN_ROLE)
 async def history(ctx):
     commandsContent = open('data/logs/commands.easy', 'r').read()
-    await ctx.send(f"**DiscordRecon gonna send you the results in DM**")
+    await ctx.send(f"**DiscordRecon gonna send you the results in your DM**")
 
     if len(commandsContent) < 2000:
         await ctx.message.author.send('**Users Commands:**')
