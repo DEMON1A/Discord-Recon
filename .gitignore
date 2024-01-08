@@ -1,0 +1,16 @@
+# Ignore all __pycache__ directories
+__pycache__/
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore settings.py file
+settings.py
+
+# Ignore logs and data folders
+logs/
+data/
+messages/
+tools/

@@ -109,4 +109,4 @@ git clone https://github.com/devanshbatham/ParamSpider.git
 mv ParamSpider/ tools/
 echo -e "${GREEN}ParamSpider installed${ENDCOLOR}"
 
-echo -e "${RED}All tools has been installed, please make sure to configure them before running the bot${ENDCOLOR}"
+echo -e "${GREEN}All tools has been installed, please make sure to configure them before running the bot${ENDCOLOR}"

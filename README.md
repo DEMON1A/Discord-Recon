@@ -26,7 +26,7 @@ cd discord-recon/
 3. run discord-recon tools installer from the main folder and make sure there's no errors using:
 
 ```
-sudo bash ./bash/installer.sh
+sudo bash ./bin/installer.sh
 ```
 
 4. modify your `settings.py` file with the options you like
@@ -91,8 +91,8 @@ sudo bash ./bash/installer.sh
 - sure you can. just open an issue with the tool name. and it will be added in both. the source code and the our discord server.
 
 ## Wanna delete your bot data? :worried:
-1. chmod +x bash/clean.sh
-2. bash/clean.sh
+1. chmod +x bin/clean.sh
+2. bin/clean.sh
 
 ## Security
 - we care about discord-recon security specially because it interacts with the internal server and any security issues can result in server-side issues, if you think that you found a security issue on discord-recon with working proof of concept on the bot on our server. then you can report this issue via [huntr](https://huntr.dev/) to get awarded and help me fixing the issue by sumitting code fixes, otherwise you can just open an issue with it on github or email me at my personal email and i will respond asap.

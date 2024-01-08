@@ -1,12 +1,7 @@
 import sys, optparse
 from dhooks import Webhook, File
 
-from assets import removeColors
-from assets import randomStrings
-from assets import fileSize
-from assets import filesUploader
-from os import path
-
+from utils.uio import utilities
 from settings import DEFAULT_DISCORD_WEBHOOK
 from settings import BASE_PATH
 
@@ -27,7 +22,7 @@ def sendLineByLine(DiscordWebhook):
 
         for singleLine in sys.stdin:
             singleLine = singleLine.rstrip('\n')
-            singleLine = removeColors.Remove(singleLine)
+            singleLine = utilities.remove_escape_sequences(singleLine)
             Hook.send(singleLine)
     except Exception:
         print("Can't connect to the webhook you added")
@@ -36,24 +31,22 @@ def sendFullInput(DiscordWebhook, Options):
     try:
         Hook = Webhook(DiscordWebhook)
         pipeOutput = sys.stdin.read()
-        pipeOutput = removeColors.Remove(pipeOutput)
+        pipeOutput = utilities.remove_escape_sequences(pipeOutput)
 
         if len(pipeOutput) < 2000:
             Hook.send(f"**{Options.message}**")
             Hook.send(f"```\n{pipeOutput}```")
             Hook.send(f"**{Options.footer}**")
         else:
-            randomFilename = randomStrings.Genrate()
+            randomFilename = utilities.generate_random_string()
 
             with open(f'messages/{randomFilename}', 'w') as outputFile:
                 outputFile.write(pipeOutput)
                 outputFile.close()
 
-            messageSize = fileSize.getSize(filePath=f'{BASE_PATH}/messages/{randomFilename}')
+            messageSize = utilities.get_size(filePath=f'{BASE_PATH}/messages/{randomFilename}')
             if messageSize > 8:
-                anonURL = filesUploader.uploadFiles(f"{BASE_PATH}/messages/{randomFilename}")
-                Hook.send(f"**{Options.message}:** {anonURL}")
-                Hook.send(f"**{Options.footer}**")
+                Hook.send("We currently don't support sending outputs w/ size over 8mb")
             else:
                 discordFile = File(f"{BASE_PATH}/messages/{randomFilename}", name=randomFilename)
                 Hook.send(f"**{Options.message}**", file=discordFile)
@@ -66,11 +59,9 @@ def sendMessage(DiscordWebhook, Options):
         Hook = Webhook(DiscordWebhook)
 
         if Options.file:
-            messageSize = fileSize.getSize(filePath=f"{BASE_PATH}/messages/{Options.file}")
+            messageSize = utilities.get_size(filePath=f"{BASE_PATH}/messages/{Options.file}")
             if messageSize > 8:
-                anonURL = filesUploader.uploadFiles(f"{BASE_PATH}/messages/{Options.file}")
-                Hook.send(f"**{Options.message}:** {anonURL}")
-                Hook.send(f"**{Options.footer}**")
+                Hook.send("We currently don't support sending outputs w/ size over 8mb")
             else:
                 discordFile = File(f"{BASE_PATH}/messages/{Options.file}")
                 Hook.send(f"**{Options.message}:**", file=discordFile)

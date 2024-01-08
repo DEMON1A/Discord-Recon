@@ -3,17 +3,18 @@ from settings import BASE_PATH
 
 # Define globals
 logsItems = {}
+logsBase = f'{BASE_PATH}/logs/targets.log'
 
 def logsExists():
-    return path.exists(f'{BASE_PATH}/data/logs/logs.easy')
+    return path.exists(logsBase)
 
 def logsParser():
     global logsItems
 
     if not logsExists():
-        open('data/logs/logs.easy' , 'a').close()
+        open(logsBase , 'a').close()
 
-    logsContent = open(f'{BASE_PATH}/data/logs/logs.easy', 'r').readlines()
+    logsContent = open(logsBase, 'r').readlines()
     if len(logsContent) == 0:
         return False
     else:
@@ -29,6 +30,6 @@ def logsParser():
         return logsItems
 
 def logsWriter(Target , fileName):
-    with open(f'{BASE_PATH}/data/logs/logs.easy' , 'a') as logsFile:
+    with open(logsBase , 'a') as logsFile:
         logsFile.write(f"{Target}={fileName}\n")
         logsFile.close()
