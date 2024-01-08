@@ -157,6 +157,7 @@ async def statuscode(ctx, *, argument):
 
 @Client.command()
 async def prips(ctx, *, argument):
+    argument = CommandInjection.sanitizeInput(argument)
     Output = subprocess.Popen(f"prips {argument}", stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     Output = Output.communicate()[0].decode('UTF-8')
 
@@ -167,12 +168,12 @@ async def prips(ctx, *, argument):
             Message.write(Output)
             Message.close()
 
-            await ctx.send("Prips Results: ", file=discord.File(f"messages/{RandomStr}"))
-            await ctx.send(f"\n**- {ctx.message.author}**")
+            await ctx.send(f"Prips output for **{argument}**: ", file=discord.File(f"messages/{RandomStr}"))
+            await ctx.send(f"\nRequested by **{ctx.message.author}**")
     else:
-        await ctx.send("**Prips Results:**")
+        await ctx.send(f"Prips output for **{argument}:**")
         await ctx.send(f"```{Output}```")
-        await ctx.send(f"\n**- {ctx.message.author}**")
+        await ctx.send(f"\nRequested by **{ctx.message.author}**")
 
 # Tools commands
 @Client.command()
