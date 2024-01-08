@@ -158,7 +158,7 @@ async def statuscode(ctx, *, argument):
 @Client.command()
 async def prips(ctx, *, argument):
     Output = subprocess.Popen(f"prips {argument}", stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
-    Output = Output.decode('UTF-8')
+    Output = Output.communicate()[0].decode('UTF-8')
 
     if len(Output) > 2000:
         RandomStr = utilities.generate_random_string()
